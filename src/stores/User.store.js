@@ -13,8 +13,8 @@ class User {
     if (id) this.fetchFromDB(id);
   }
 
-  fetchFromDB = (id) => {
-    // DB call, then
+  fetchFromDB = async (id) => {
+    // await DB call, then
     this.id = id;
   }
 }

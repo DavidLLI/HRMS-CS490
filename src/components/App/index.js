@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-// Components
-import Login from '../auth/Login';
+import { Redirect } from 'react-router-dom';
+// Stores
+import AuthStore from '@stores/Auth.store';
 
 class App extends Component {
-  render() {
+  _renderApp = () => {
+    if (!AuthStore.isLoggedIn) {
+      return <Redirect to={{ pathname: '/login' }} />;
+    }
+
     return (
       <div className='container-fluid'>
-        <Login />
+        <h1>App part I guess</h1>
       </div>
     );
+  }
+
+  render() {
+    return this.props.children || this._renderApp();
   }
 }
 
