@@ -7,7 +7,7 @@ class Signup extends Component {
   render() {
     return (
       <PageHeader>
-        Signup <small>This is a signup page header.</small>
+        Signup <small>This is a signup page headermhm.</small>
       </PageHeader>
     );
   }

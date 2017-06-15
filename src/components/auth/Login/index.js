@@ -7,7 +7,7 @@ class Login extends Component {
   render() {
     return (
       <PageHeader>
-        Login <small>This is a login page header.</small>
+        Login <small>This is a login page header yup.</small>
       </PageHeader>
     );
   }
