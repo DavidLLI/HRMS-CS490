@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-// Stores
-import AuthStore from '@stores/Auth.store';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Header from '@components/Header';
+import Auth from '@components/Auth';
+import Dashboard from '@components/Dashboard';
 
 class App extends Component {
-  _renderApp = () => {
-    if (!AuthStore.isLoggedIn) {
-      return <Redirect to={{ pathname: '/login' }} />;
-    }
-
-    return (
-      <div className='container-fluid'>
-        <h1>App part I guess</h1>
-      </div>
-    );
-  }
-
   render() {
-    return this.props.children || this._renderApp();
+    return (
+      <BrowserRouter>
+        <Switch>
+          <div className="container-fluid">
+            <Header/>
+            <Route path="/login" component={Auth} />
+            <Route path="/signup" component={Auth} />
+            <Route exact path="/" component={Dashboard} />
+          </div>
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 
