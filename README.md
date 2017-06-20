@@ -650,6 +650,7 @@ Install React Bootstrap and Bootstrap from npm. React Bootstrap does not include
 ```
 npm install react-bootstrap --save
 npm install bootstrap@3 --save
+npm install react-bootstrap-calendar
 ```
 
 Import Bootstrap CSS and optionally Bootstrap theme CSS in the beginning of your ```src/index.js``` file:
