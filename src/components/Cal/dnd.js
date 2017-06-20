@@ -43,7 +43,7 @@ class Dnd extends Components {
         events={this.state.events}
         onEventDrop={this.moveEvent}
         defaultView='week'
-        defaultDate={new Date(2015, 3, 12)}
+        defaultDate={new Date(2017, 3, 12)}
       />
     )
   }
