@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
 
 class Auth {
-  @observable isLoggedIn = false;
+  @observable isLoggedIn = true;
 }
 
 const AuthInstance = new Auth();
