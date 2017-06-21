@@ -5,6 +5,7 @@ import Login from './Login';
 import Signup from './Signup';
 import AuthStore from '@stores/Auth.store';
 import { observer } from 'mobx-react';
+import './index.css';
 
 @observer class Auth extends Component {
   constructor(props) {
@@ -29,9 +30,9 @@ import { observer } from 'mobx-react';
       <div className='container-fluid'>
         <Grid>
           <Row>
-            <Nav bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>
-              <NavItem eventKey={'login'} href="login">Login</NavItem>
-              <NavItem eventKey={'signup'} href="signup">Signup</NavItem>
+            <Nav className="navbar" bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>
+              <NavItem className="navItem" eventKey={'login'} href="login">Login</NavItem>
+              <NavItem className="navItem" eventKey={'signup'} href="signup">Signup</NavItem>
             </Nav>
           </Row>
           <Row>

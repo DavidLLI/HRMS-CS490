@@ -41,14 +41,14 @@ import './login.css';
       	<form className="loginForm" onSubmit={this.handleSubmit}>
       		<div className="username">
       			<label>
-		    		Username:
-		    		<input type="text" className="usernameField" value={this.state.username} onChange={this.handleUsernameChange} />
+		    		  Username:
+		    		  <input type="text" className="usernameField" value={this.state.username} onChange={this.handleUsernameChange} />
 		  		</label>
       		</div>
       		<div className="password">
       			<label>
-		    		Password:
-		    		<input type="password" className="passwordField" value={this.state.password} onChange={this.handlePasswordChange} />
+		    		  Password:
+		    		  <input type="password" className="passwordField" value={this.state.password} onChange={this.handlePasswordChange} />
 		  		</label>
       		</div>
 		  	<div className="loginBtn">

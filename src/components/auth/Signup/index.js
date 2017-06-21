@@ -63,11 +63,10 @@ import './signup.css';
 			  	<div className="loginBtn">
 			  		<input type="submit" value="Sign up" className="loginButton" />
 			  	</div>
-			  	{this.state.password !== this.state.confirmPassword && 
-					<label className='signupError'>Password need to be the same.</label>
-				}
-				{AuthStore.signupError && 
-					<label className='signupError'>{AuthStore.signupError}</label>
+			  	{(this.state.password !== this.state.confirmPassword && 
+					<label className='signupError'>Both password need to be the same.</label>) ||
+			  	 (AuthStore.signupError && 
+					<label className='signupError'>{AuthStore.signupError}</label>)
 				}
 			</form>
 	    );
