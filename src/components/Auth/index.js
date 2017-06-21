@@ -4,22 +4,20 @@ import { Grid, Row, Col, Nav, NavItem } from 'react-bootstrap';
 import Login from './Login';
 import Signup from './Signup';
 import AuthStore from '@stores/Auth.store';
+import { observer } from 'mobx-react';
+import './index.css';
 
-class Auth extends Component {
+@observer class Auth extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeTab: 'login',
-    };
   }
 
   handleTabSelect = (selectedTab) => {
-    this.setState({ activeTab: selectedTab });
+    AuthStore.setTab(selectedTab);
   };
 
   renderForm = () => {
-    if (this.state.activeTab === 'signup') return <Signup/>;
+    if (AuthStore.activeTab === 'signup') return <Signup/>;
     return <Login/>;
   };
 
@@ -32,9 +30,9 @@ class Auth extends Component {
       <div className='container-fluid'>
         <Grid>
           <Row>
-            <Nav bsStyle="tabs" activeKey={this.state.activeTab} onSelect={this.handleTabSelect}>
-              <NavItem eventKey={'login'} href="login">Login</NavItem>
-              <NavItem eventKey={'signup'} href="signup">Signup</NavItem>
+            <Nav className="navbar" bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>
+              <NavItem className="navItem" eventKey={'login'} href="login">Login</NavItem>
+              <NavItem className="navItem" eventKey={'signup'} href="signup">Signup</NavItem>
             </Nav>
           </Row>
           <Row>
