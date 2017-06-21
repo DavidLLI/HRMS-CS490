@@ -1,0 +1,24 @@
+.usernameField {
+	position: relative;
+	left: 10px;
+}
+
+.passwordField {
+	position: relative;
+	left: 11px;
+}
+
+.loginButton {
+	position: relative;
+	top: 10px;
+}
+
+.loginError {
+	position: relative;
+	top: 20px;
+}
+
+.loginForm {
+	position: relative;
+	top: 20px;
+}

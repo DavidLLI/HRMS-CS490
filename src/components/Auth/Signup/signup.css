@@ -1,0 +1,9 @@
+.signupForm {
+	position: relative;
+	top: 15px;
+}
+
+.signupError {
+	position: relative;
+	top: 20px;
+}
