@@ -1,4 +1,4 @@
-.auth-container {
+.authContainer {
 	width: 800px;           /* Set this to your convenience */
     height: 600px;          /* Set this to your convenience */
     position: absolute;
@@ -11,13 +11,13 @@
 	border: 1px solid #B5B4B4;
 }
 
-.navbar {
+.authNavbar {
 	width: 800px;
 	display: flex;
 	flex-direction: row;
 }
 
-.navItem {
+.authNavItem {
 	/* Login: */
 	font-family: AppleSDGothicNeo-Light;
 	font-size: 36px;
