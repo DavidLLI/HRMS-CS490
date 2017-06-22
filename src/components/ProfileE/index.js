@@ -19,7 +19,7 @@ class Profile extends Component {
         </Col>
           <Col xsPush={5} md={4}>
           <ButtonToolbar>
-            <Button bsStyle = "primary" bsSize="Default"  onClick= {this.handleClickLogout}>Logout</Button>
+            <Button bsStyle="primary"  onClick= {this.handleClickLogout}>Logout</Button>
           </ButtonToolbar>
           </Col>
           <Col xsPush={2} md={4}>
@@ -38,7 +38,7 @@ class Profile extends Component {
        <Row>
           <Form horizontal>
             <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                     Email
                 </Col>
                 <Col sm={10}>
@@ -47,7 +47,7 @@ class Profile extends Component {
             </FormGroup>
 
             <FormGroup controlId="formHorizontalMobile">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                     Mobile
                 </Col>
                 <Col sm={10}>
@@ -68,7 +68,7 @@ class Profile extends Component {
        <Row>
           <Form horizontal>
             <FormGroup controlId="formHorizontalBirthday">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                     Birthday
                 </Col>
                 <Col sm={10}>
@@ -77,7 +77,7 @@ class Profile extends Component {
             </FormGroup>
 
             <FormGroup controlId="formHorizontalDepartment">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                    Department
                 </Col>
                 <Col sm={10}>
@@ -86,7 +86,7 @@ class Profile extends Component {
             </FormGroup>
             
              <FormGroup controlId="formHorizontalSupervisor">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                    Supervisor
                 </Col>
                 <Col sm={10}>
@@ -95,7 +95,7 @@ class Profile extends Component {
             </FormGroup>
 
              <FormGroup controlId="formHorizontalCity">
-                <Col componentClass={ControlLabel} sm={1}>
+                <Col componentClass={ControlLabel} sm={2}>
                    City
                 </Col>
                 <Col sm={10}>
@@ -106,7 +106,7 @@ class Profile extends Component {
             </Form>
             <Col xsPush={2} md={4}>
             <ButtonToolbar>
-                <Button bsStyle = "primary" bsSize="Default"  onClick= {this.handleClickSave}>Save</Button>
+                <Button bsStyle="primary" onClick= {this.handleClickSave}>Save</Button>
             </ButtonToolbar>
             </Col>
         </Row>
