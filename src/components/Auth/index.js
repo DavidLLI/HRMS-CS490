@@ -8,10 +8,6 @@ import { observer } from 'mobx-react';
 import './index.css';
 
 @observer class Auth extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleTabSelect = (selectedTab) => {
     AuthStore.setTab(selectedTab);
   };
@@ -27,12 +23,12 @@ import './index.css';
     }
 
     return (
-      <div className='container-fluid'>
+      <div className='container-fluid authContainer'>
         <Grid>
           <Row>
-            <Nav className="navbar" bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>
-              <NavItem className="navItem" eventKey={'login'} href="login">Login</NavItem>
-              <NavItem className="navItem" eventKey={'signup'} href="signup">Signup</NavItem>
+            <Nav className="authNavbar" bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>
+              <NavItem className="authNavItem" eventKey={'login'} href="login">Login</NavItem>
+              <NavItem className="authNavItem" eventKey={'signup'} href="signup">Signup</NavItem>
             </Nav>
           </Row>
           <Row>
