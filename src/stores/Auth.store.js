@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx';
 import axios from 'axios';
+import UserStore from '@stores/User.store';
+import Cookies from 'universal-cookie';
 
 class Auth {
   @observable isLoggedIn = false;
@@ -10,6 +12,19 @@ class Auth {
   @observable username = '';
 
   @observable activeTab = 'login';
+
+  constructor() {
+    this.cookies = new Cookies();
+  }
+
+  @action updateLoggedIn() {
+    this.username = this.cookies.get('hr_username');
+    if (this.username) {
+      this.isLoggedIn = true;
+    }
+    console.log(this.username);
+    return this.isLoggedIn;
+  }
 
   @action setTab(activeTab) {
   	this.activeTab = activeTab;
@@ -35,6 +50,10 @@ class Auth {
   			if (data.status === 200) {
   				this.username = username;
   				this.isLoggedIn = true;
+          UserStore.logIn(username);
+          let d = new Date();
+          d.setTime(d.getTime() + 60 * 1000 * 60); // expire in 5 mins
+          this.cookies.set('hr_username', username, { path: '/', expires: d });
   			}
   		})
   		.catch((error) => {

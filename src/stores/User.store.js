@@ -1,22 +1,32 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
+import axios from 'axios';
+import moment from 'moment';
+import Cookies from 'universal-cookie';
 
 class User {
-  id; // id of null means not saved/synced to DB
   @observable firstName;
   @observable lastName;
 
   constructor(id) {
-    this.id = null;
     this.firstName = '';
     this.lastName = '';
-
-    if (id) this.fetchFromDB(id);
   }
 
-  fetchFromDB = async (id) => {
-    // await DB call, then
-    this.id = id;
+  @action logIn(username) {
+    this.fetchFromDB(username);
+  }
+
+  fetchFromDB = async (username) => {
+    axios.get('http://localhost:4000/api/employee/username/' + username)
+    .then((data) => {
+      this.firstName = data.data[0].firstName;
+      this.lastName = data.data[0].lastName;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 }
 
-export default User;
+const UserStore = new User();
+export default UserStore;

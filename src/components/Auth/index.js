@@ -27,7 +27,7 @@ import './index.css';
     }
 
     return (
-      <div className='container-fluid'>
+      <div className='auth-container'>
         <Grid>
           <Row>
             <Nav className="navbar" bsStyle="tabs" activeKey={AuthStore.activeTab} onSelect={this.handleTabSelect}>

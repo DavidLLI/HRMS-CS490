@@ -4,7 +4,7 @@ import Header from '@components/Header';
 import Auth from '@components/Auth';
 import Dashboard from '@components/Dashboard';
 import Cal from '@components/Cal';
-
+import AuthStore from '@stores/Auth.store';
 
 
 
