@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 class TopNavBar extends Component {
@@ -7,7 +8,9 @@ class TopNavBar extends Component {
       <Navbar fixedTop fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="/">HR Systems</a>
+            <LinkContainer to="/">
+              <a>HR Systems</a>
+            </LinkContainer>
           </Navbar.Brand>
         </Navbar.Header>
         <Nav pullRight>
