@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { PageHeader } from 'react-bootstrap';
 
 import Cal from '@components/Cal';
+import Profile from '@components/Profile';
 
 const ph = (name) => {
   return ( () => <PageHeader>{name}</PageHeader> );
@@ -12,7 +13,7 @@ const TABS = [
   {
     name: 'Profile',
     path: 'profile',
-    component: ph('Profile'),
+    component: Profile,
   },
   {
     name: 'Hiring',
