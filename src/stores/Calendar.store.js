@@ -23,6 +23,17 @@ class Calendar {
     this.month = month;
   }
 
+  @action requestTimeoff(date, start, end) {
+  	const obj = {date: date, time: {startTime: start, endTime: end}};
+  	axios.post('http://localhost:4000/api/employee/timeoff/username/' + AuthStore.username, obj)
+  	.then(() => {
+  		this.getYearAvailability(this.year, this.month);
+  	})
+  	.catch((error) => {
+  		console.log(error);
+  	});
+  }
+
   @action getRegularAvail() {
     axios.get('http://localhost:4000/api/employee/availability/username/' + AuthStore.username)
     .then((data) => {

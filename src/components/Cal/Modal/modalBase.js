@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import TimeoffPage from './timeoff';
 import SpecialAvailPage from './specialAvail';
 import TimesheetPage from './timesheet';
+import moment from 'moment';
 import './modalBase.css';
 
 class modalBase extends Component {
@@ -38,7 +39,16 @@ class modalBase extends Component {
 	}
 
 	render() {
-		console.log(this.props.event);
+		let timeChosen = {};
+		if (this.props.slotInfo.start) {
+			timeChosen = {start: this.props.slotInfo.start,
+						end: this.props.slotInfo.end};
+		}
+		else {
+			timeChosen = {start: this.props.event.start,
+						end: this.props.event.end};
+		}
+
 		return (
 			<Modal
 				{...this.props}
@@ -52,9 +62,9 @@ class modalBase extends Component {
 					<div>
 						<label className="timeChosen">
 							{this.props.slotInfo.start && 
-								this.props.slotInfo.start + ' to ' + this.props.slotInfo.end}
+								moment(this.props.slotInfo.start).format('YYYY-MM-DD')}
 							{this.props.event.start &&
-								this.props.event.start + ' to ' + this.props.event.end}
+								moment(this.props.event.start).format('YYYY-MM-DD')}
 						</label>
 						{
 							this.props.buttonList && this.props.buttonList.includes('timeoff') && 
@@ -78,7 +88,11 @@ class modalBase extends Component {
 				}
 				{
 					this.state.activePage === 'timeoff' &&
-					<TimeoffPage />
+					<TimeoffPage
+						timeChosen={timeChosen}
+						onEnter={this.onEnter}
+						onHide={this.props.onHide}
+					/>
 				}
 				{
 					this.state.activePage === 'specialAvail' &&
