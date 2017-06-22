@@ -4,7 +4,8 @@ export default [
     'title': 'All Day Event',
     'allDay': true,
     'start': new Date(2017, 3, 0),
-    'end': new Date(2017, 3, 1)
+    'end': new Date(2017, 3, 1),
+    'hexColor': 'ff0000'
   },
   {
     'title': 'Long Event',
@@ -20,7 +21,7 @@ export default [
 
   {
     'title': 'DTS ENDS',
-    'start': new Date(2016, 10, 6, 0, 0, 0),
+    'start': new Date(2016, 10, 6, 8, 0, 0),
     'end': new Date(2016, 10, 13, 0, 0, 0)
   },
 

@@ -34,7 +34,7 @@ import './login.css';
 
   render() {
   	if (AuthStore.isLoggedIn) {
-  		return <Redirect to={{ pathname: '/' }} />;
+  		return <Redirect to={{ pathname: '/basic' }} />;
   	}
 
     return (
