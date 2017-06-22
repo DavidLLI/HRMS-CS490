@@ -1,0 +1,17 @@
+.signupForm {
+	position: relative;
+	top: 15px;
+}
+
+.signupError {
+	position: relative;
+	left: 130px;
+	top: -85px;
+	font-size: 24px;
+	color: #FF0000;
+}
+
+.confirmPassword {
+	position: relative;
+	left: 125px;
+}

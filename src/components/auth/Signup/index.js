@@ -1,16 +1,76 @@
 import React, { Component } from 'react';
-import { PageHeader } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import AuthStore from '@stores/Auth.store';
+import { observer } from 'mobx-react';
+import './signup.css';
 
-class Signup extends Component {
-  static displayName = 'Login';
+@observer class Signup extends Component {
 
-  render() {
-    return (
-      <PageHeader>
-        Signup <small>This is a signup page header.</small>
-      </PageHeader>
-    );
-  }
+	constructor(props) {
+	    super(props);
+	    this.state = {
+	      username: '',
+	      password: '',
+	      confirmPassword: ''
+		};
+
+	    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+	    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+	    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+	    this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleUsernameChange(event) {
+	  	this.setState({username: event.target.value});
+	}
+
+	handlePasswordChange(event) {
+	 	this.setState({password: event.target.value});
+ 	}
+
+ 	handleConfirmPasswordChange(event) {
+ 		this.setState({confirmPassword: event.target.value});
+ 	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		if (this.state.password === this.state.confirmPassword) {
+			AuthStore.signUp(this.state.username, this.state.password);
+		}
+	}
+
+  	render() {
+    	return (
+	      	<form className="signupForm" onSubmit={this.handleSubmit}>
+	      		<div className="username">
+	      			<label>
+			    		Username:
+			    		<input type="text" className="usernameField" value={this.state.username} onChange={this.handleUsernameChange} />
+			  		</label>
+	      		</div>
+	      		<div className="password">
+	      			<label>
+			    		Password:
+			    		<input type="password" className="passwordField" value={this.state.password} onChange={this.handlePasswordChange} />
+			  		</label>
+	      		</div>
+	      		<div className="confirmPassword">
+	      			<label>
+			    		Confirm Password:
+			    		<input type="password" className="passwordField" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
+			  		</label>
+	      		</div>
+			  	<div className="loginBtn">
+			  		<input type="submit" value="Sign up" className="loginButton" />
+			  	</div>
+			  	{(this.state.password !== this.state.confirmPassword && 
+					<label className='signupError'>Both password need to be the same.</label>) ||
+			  	 (AuthStore.signupError && 
+					<label className='signupError'>{AuthStore.signupError}</label>)
+				}
+			</form>
+	    );
+  	}
 }
 
 export default Signup;

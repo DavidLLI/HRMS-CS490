@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import './hiringPage.css';
 
@@ -12,7 +13,9 @@ class HiringPage extends Component {
     return (
       <div className='hiringDetail'>
         <ButtonToolbar>
-          <Button className='back' href="http://localhost:3000/Hiring">&larr;</Button>
+          <Link to="/dashboard/hiring">
+            <Button className='back'>&larr;</Button>
+          </Link>
           <Button className='contact'>Contact</Button>
           <Button className='apply'>Apply</Button>
         </ButtonToolbar>
