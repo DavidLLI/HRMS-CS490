@@ -78,13 +78,14 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
   }
 
   editEvent(event) {
-    if (event.type === 'Timeoff') {
+    console.log(event);
+    if (event.title === 'Timeoff') {
       this.setState({buttonList: ['cancel timeoff']});
     }
-    else if (event.type === 'Special availability') {
+    else if (event.title === 'Special availability') {
       this.setState({buttonList: ['cancel special', 'timeoff', 'timesheet']});
     }
-    else {
+    else if (event.title === 'Regular availability') {
       this.setState({buttonList: ['special', 'timeoff', 'timesheet']});
     }
 
@@ -119,7 +120,7 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
     if (!AuthStore.isLoggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
-    console.log(CalendarStore.availability.slice().length);
+    //console.log(CalendarStore.availability.slice().length);
     return (
       <div>
         <button onClick={this.editRegularAvail}>
