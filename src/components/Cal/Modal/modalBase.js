@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import TimeoffPage from './timeoff';
+import CancelTimeoffPage from './cancelTimeoff';
 import SpecialAvailPage from './specialAvail';
+import CancelSpecialAvailPage from './cancelSpecialAvail';
 import TimesheetPage from './timesheet';
 import moment from 'moment';
 import './modalBase.css';
@@ -15,7 +17,9 @@ class modalBase extends Component {
 		};
 
 		this.timeoffButton = this.timeoffButton.bind(this);
+		this.cancelTimeoffButton = this.cancelTimeoffButton.bind(this);
 		this.specialAvailButton = this.specialAvailButton.bind(this);
+		this.cancelSpecialButton = this.cancelSpecialButton.bind(this);
 		this.timesheetButton = this.timesheetButton.bind(this);
 		this.onEnter = this.onEnter.bind(this);
 	}
@@ -26,8 +30,16 @@ class modalBase extends Component {
 		this.setState({activePage: 'timeoff'});
 	}
 
+	cancelTimeoffButton() {
+		this.setState({activePage: 'cancel timeoff'});
+	}
+
 	specialAvailButton() {
 		this.setState({activePage: 'specialAvail'});
+	}
+
+	cancelSpecialButton() {
+		this.setState({activePage: 'cancel special'});
 	}
 
 	timesheetButton() {
@@ -73,9 +85,21 @@ class modalBase extends Component {
 							</button>
 						}
 						{
+							this.props.buttonList && this.props.buttonList.includes('cancel timeoff') && 
+							<button onClick={this.cancelTimeoffButton}>
+								Cancel time off
+							</button>
+						}
+						{
 							this.props.buttonList && this.props.buttonList.includes('special') && 
 							<button onClick={this.specialAvailButton}>
 								Specify special availability
+							</button>
+						}
+						{
+							this.props.buttonList && this.props.buttonList.includes('cancel special') && 
+							<button onClick={this.cancelSpecialButton}>
+								Cancel special availability
 							</button>
 						}
 						{
@@ -95,8 +119,28 @@ class modalBase extends Component {
 					/>
 				}
 				{
+					this.state.activePage === 'cancel timeoff' &&
+					<CancelTimeoffPage
+						timeChosen={timeChosen}
+						onEnter={this.onEnter}
+						onHide={this.props.onHide}
+					/>
+				}
+				{
 					this.state.activePage === 'specialAvail' &&
-					<SpecialAvailPage />
+					<SpecialAvailPage 
+						timeChosen={timeChosen}
+						onEnter={this.onEnter}
+						onHide={this.props.onHide}
+					/>
+				}
+				{
+					this.state.activePage === 'cancel special' &&
+					<CancelSpecialAvailPage 
+						timeChosen={timeChosen}
+						onEnter={this.onEnter}
+						onHide={this.props.onHide}
+					/>
 				}
 				{
 					this.state.activePage === 'timehseet' &&
