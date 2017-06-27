@@ -6,10 +6,8 @@ import Cal from '@components/Cal';
 import Hiring from '@components/Hiring';
 import Training from '@components/Training';
 import Profile from '@components/Profile';
-
-const ph = (name) => {
-  return ( () => <PageHeader>{name}</PageHeader> );
-};
+import Announcements from '@components/Announcements';
+import Surveys from '@components/Surveys';
 
 const TABS = [
   {
@@ -35,12 +33,12 @@ const TABS = [
   {
     name: 'Announcements',
     path: 'announcements',
-    component: ph('Announcements'),
+    component: Announcements,
   },
   {
     name: 'Surveys',
     path: 'surveys',
-    component: ph('Surveys'),
+    component: Surveys,
   },
 ];
 
