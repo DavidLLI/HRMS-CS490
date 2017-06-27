@@ -33,12 +33,12 @@
   left: 20px;
 }
 
-.container-fluid {
+.hiringPage .container-fluid {
   padding-right: 0px;
   padding-left: 0px;
 }
 
-.btbar {
+.hiringPage .btbar {
   position: relative;
   top: 4px;
   left: 15px;
