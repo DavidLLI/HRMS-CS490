@@ -5,6 +5,7 @@ import { PageHeader } from 'react-bootstrap';
 import Cal from '@components/Cal';
 import Hiring from '@components/Hiring';
 import Training from '@components/Training';
+import Profile from '@components/Profile';
 
 const ph = (name) => {
   return ( () => <PageHeader>{name}</PageHeader> );
@@ -14,7 +15,7 @@ const TABS = [
   {
     name: 'Profile',
     path: 'profile',
-    component: ph('Profile'),
+    component: Profile,
   },
   {
     name: 'Hiring',
