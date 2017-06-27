@@ -88,6 +88,22 @@ class Profile extends Component {
             <Row>
               City: Waterloo
             </Row>
+            <Row>
+              ———————————————————————————————
+            </Row> 
+            <Row>
+               ADDITIONAL INFORMATION
+            </Row> 
+            <Row>
+               ------------------------------
+            </Row> 
+            <Row>
+               Skills: PHP,Java,HTML,CSS,C++,JavaScript
+            </Row> 
+            <Row>
+              Interests: Tennis, football, piano
+            </Row> 
+           
 
           </Col>
         </Row>

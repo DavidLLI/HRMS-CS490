@@ -57,9 +57,9 @@ class Profile extends Component {
             
             
 
-            </Form>
-        </Row>
-         <Row>
+        </Form>
+       </Row>
+      <Row>
                GENERAL INFORMATION
       </Row> 
       <Row>
@@ -104,6 +104,66 @@ class Profile extends Component {
             </FormGroup>
 
             </Form>
+            </Row>
+                  <Row>
+               CONTACT INFORMATION
+      </Row> 
+      <Row>
+               ------------------------------
+      </Row> 
+       <Row>
+          <Form horizontal>
+            <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Email
+                </Col>
+                <Col sm={10}>
+                    <FormControl type="email" placeholder="Email" />
+                </Col>
+            </FormGroup>
+
+            <FormGroup controlId="formHorizontalMobile">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Mobile
+                </Col>
+                <Col sm={10}>
+                    <FormControl type="Mobile" placeholder="Mobile" />
+                </Col>
+            </FormGroup>
+            
+            
+
+        </Form>
+       </Row>
+      <Row>
+               ADDITIONAL INFORMATION
+      </Row> 
+      <Row>
+               ------------------------------
+      </Row> 
+       <Row>
+          <Form horizontal>
+            <FormGroup controlId="formHorizontalSKILLS">
+                <Col componentClass={ControlLabel} sm={2}>
+                    Skills
+                </Col>
+                <Col sm={10}>
+                    <FormControl type="skills" placeholder="Skills" />
+                </Col>
+            </FormGroup>
+
+            <FormGroup controlId="formHorizontalInterests">
+                <Col componentClass={ControlLabel} sm={2}>
+                   Interests
+                </Col>
+                <Col sm={10}>
+                    <FormControl type="interests" placeholder="Interests" />
+                </Col>
+            </FormGroup>
+
+            </Form>
+          </Row>
+          <Row>
             <Col xsPush={2} md={4}>
             <ButtonToolbar>
                 <Button bsStyle="primary" onClick= {this.handleClickSave}>Save</Button>
