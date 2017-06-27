@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { PageHeader } from 'react-bootstrap';
 
 import Cal from '@components/Cal';
+import Hiring from '@components/Hiring';
+import Training from '@components/Training';
 import Profile from '@components/Profile';
 
 const ph = (name) => {
@@ -18,7 +20,7 @@ const TABS = [
   {
     name: 'Hiring',
     path: 'hiring',
-    component: ph('Hiring'),
+    component: Hiring,
   },
   {
     name: 'Tracking System',
@@ -28,7 +30,7 @@ const TABS = [
   {
     name: 'Training System',
     path: 'training',
-    component: ph('Training'),
+    component: Training,
   },
   {
     name: 'Announcements',
