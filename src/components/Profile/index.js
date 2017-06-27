@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { PageHeader } from 'react-bootstrap';
 import { Grid, Row, Col,Image} from 'react-bootstrap';
 import { ButtonToolbar,Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import ProfileE from '@components/ProfileE';
+
+class ProfileWrap extends Component {
+  render() {
+    const url = this.props.match.url;
+
+    return (
+      <div>
+        <Route exact path={url} component={Profile} />
+        <Route path={`${url}/edit`} component={ProfileE} />
+      </div>
+    );
+  }
+}
 
 class Profile extends Component {
   static displayName = 'Profile';
@@ -20,7 +35,7 @@ class Profile extends Component {
         </Col>
           <Col xsPush={5} md={4}>
           <ButtonToolbar>
-            <Button bsStyle = "primary" bsSize="Default" onClick= {this.handleClickLogout} > Logout</Button>
+            <Button bsStyle="primary" onClick= {this.handleClickLogout} > Logout</Button>
           </ButtonToolbar>
           </Col>
           <Col xsPush={2} md={4}>
@@ -86,10 +101,9 @@ class Profile extends Component {
         <Row>
            <Col xsPush={5} md={4}>
           <ButtonToolbar>
-            <Button 
-              bsStyle = "primary" 
-              bsSize="Default"
-              onClick= {this.handleClickEdit} >Edit</Button>
+            <Link to='/dashboard/profile/edit'>
+              <Button bsStyle="primary">Edit</Button>
+            </Link>
           </ButtonToolbar>
           </Col>
            
@@ -99,12 +113,9 @@ class Profile extends Component {
 
   }
 
-  handleClickEdit(){
-    window.location = 'profileE';
-  }
     handleClickLogout(){
     window.location = 'login';
   }
 }
 
-export default Profile;
+export default ProfileWrap;
