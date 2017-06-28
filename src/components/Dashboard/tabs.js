@@ -9,7 +9,25 @@ import Profile from '@components/Profile';
 import Announcements from '@components/Announcements';
 import Surveys from '@components/Surveys';
 
-const TABS = [
+const TABS_Manager = [
+  {
+    name: 'Profile',
+    path: 'profile',
+    component: Profile,
+  },
+  {
+    name: 'Hiring',
+    path: 'hiring',
+    component: Hiring,
+  },
+  {
+    name: 'Tracking System',
+    path: 'tracking',
+    component: Cal,
+  }
+];
+
+const TABS_Employee = [
   {
     name: 'Profile',
     path: 'profile',
@@ -39,7 +57,12 @@ const TABS = [
     name: 'Surveys',
     path: 'surveys',
     component: Surveys,
-  },
+  }
 ];
+
+const TABS = {
+  employee: TABS_Employee,
+  manager: TABS_Manager
+};
 
 export default TABS;

@@ -30,10 +30,11 @@ class Auth {
   	this.activeTab = activeTab;
   }
 
-  @action signUp(username, password) {
+  @action signUp(username, password, type) {
   	axios.post('http://localhost:4000/api/employee/signup', {
   			username: username,
-  			password: password
+  			password: password,
+        type: type
   		})
   		.then(() => {
   			this.setTab('login');

@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import { Route, Redirect, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Row, Col, Nav, NavItem } from 'react-bootstrap';
+import UserStore from '@stores/User.store';
 import TopNavBar from './TopNavBar';
 import TABS from './tabs';
+import { observer } from 'mobx-react';
 import './styles.css';
 
 import AuthStore from '@stores/Auth.store';
 
-class Dashboard extends Component {
-  state = {
-    currUrl: `${this.props.match.url}/${TABS[0].path}`,
-  };
+@observer class Dashboard extends Component {
+
+  constructor(props) {
+    super(props);
+    const activeTab = UserStore.type || 'employee';
+    this.state = {
+      currUrl: `${this.props.match.url}/${TABS[activeTab][0].path}`
+    };
+  }
 
   handleTabSelect = (selectedTab) => {
     this.setState({ currUrl: selectedTab });
@@ -19,6 +26,7 @@ class Dashboard extends Component {
 
   render() {
     const currUrl = this.props.match.url;
+    const activeTab = UserStore.type || 'employee';
 
     if (!AuthStore.isLoggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
@@ -30,7 +38,7 @@ class Dashboard extends Component {
         <Row className="content">
           <Col sm={2} className="sidebar">
             <Nav bsStyle="pills" stacked activeKey={this.state.currUrl} onSelect={this.handleTabSelect}>
-              { TABS.map((tab) => (
+              { TABS[activeTab].map((tab) => (
                 <LinkContainer to={`${currUrl}/${tab.path}`} key={`Tab-Link-${tab.name}`}>
                   <NavItem eventKey={`${currUrl}/${tab.path}`} key={`Tab-${tab.name}`}>
                     {tab.name}
@@ -40,8 +48,8 @@ class Dashboard extends Component {
             </Nav>
           </Col>
           <Col sm={10} className="currentView">
-            <Route exact path={`${currUrl}`} component={() => (<Redirect to={{ pathname: `${currUrl}/${TABS[0].path}` }} />)} />
-            { TABS.map((tab) => (
+            <Route exact path={`${currUrl}`} component={() => (<Redirect to={{ pathname: `${currUrl}/${TABS[activeTab][0].path}` }} />)} />
+            { TABS[activeTab].map((tab) => (
               <Route key={`Route-${tab.name}`} path={`${currUrl}/${tab.path}`} component={tab.component} />
             )) }
           </Col>

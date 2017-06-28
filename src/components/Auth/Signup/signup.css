@@ -15,3 +15,17 @@
 	position: relative;
 	left: 125px;
 }
+
+.radioGroup {
+	position: relative;
+	left: 100px;
+	display: flex;
+	flex-direction: row;
+}
+
+.radioBtn {
+	top: 10px;
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+}

@@ -6,10 +6,12 @@ import Cookies from 'universal-cookie';
 class User {
   @observable firstName;
   @observable lastName;
+  @observable type;
 
   constructor(id) {
     this.firstName = '';
     this.lastName = '';
+    this.type = '';
   }
 
   @action logIn(username) {
@@ -21,6 +23,7 @@ class User {
     .then((data) => {
       this.firstName = data.data[0].firstName;
       this.lastName = data.data[0].lastName;
+      this.type = data.data[0].type;
     })
     .catch((error) => {
       console.log(error);
