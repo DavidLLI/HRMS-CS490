@@ -1,10 +1,10 @@
 .authContainer {
 	width: 800px;           /* Set this to your convenience */
-    height: 600px;          /* Set this to your convenience */
+    height: 700px;          /* Set this to your convenience */
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -300px;     /* Half of height */
+    margin-top: -350px;     /* Half of height */
     margin-left: -400px;     /* Half of width */
     padding-left: 0;
     padding-right: 0;

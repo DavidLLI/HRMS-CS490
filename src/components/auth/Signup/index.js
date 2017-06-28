@@ -11,13 +11,15 @@ import './signup.css';
 	    this.state = {
 	      username: '',
 	      password: '',
-	      confirmPassword: ''
+	      confirmPassword: '',
+	      type: 'employee'
 		};
 
 	    this.handleUsernameChange = this.handleUsernameChange.bind(this);
 	    this.handlePasswordChange = this.handlePasswordChange.bind(this);
 	    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
+	    this.handleOptionChange = this.handleOptionChange.bind(this);
 	}
 
 	handleUsernameChange(event) {
@@ -32,10 +34,14 @@ import './signup.css';
  		this.setState({confirmPassword: event.target.value});
  	}
 
+ 	handleOptionChange(event) {
+ 		this.setState({type: event.target.value});
+ 	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		if (this.state.password === this.state.confirmPassword) {
-			AuthStore.signUp(this.state.username, this.state.password);
+			AuthStore.signUp(this.state.username, this.state.password, this.state.type);
 		}
 	}
 
@@ -59,6 +65,22 @@ import './signup.css';
 			    		Confirm Password:
 			    		<input type="password" className="passwordField" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
 			  		</label>
+	      		</div>
+	      		<div className="radioGroup">
+	      			<label className="radioBtn">
+			            <input type="radio" value="employee" 
+			            	checked={this.state.type === 'employee'}
+			            	onChange={this.handleOptionChange}
+			             />
+			            Employee
+			         </label>
+			         <label className="radioBtn">
+			            <input type="radio" value="manager" 
+			            	checked={this.state.type === 'manager'} 
+			            	onChange={this.handleOptionChange}
+			            />
+			            Manager
+			         </label>
 	      		</div>
 			  	<div className="loginBtn">
 			  		<input type="submit" value="Sign up" className="loginButton" />
