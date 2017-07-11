@@ -8,6 +8,7 @@ import Training from '@components/Training';
 import Profile from '@components/Profile';
 import Announcements from '@components/Announcements';
 import Surveys from '@components/Surveys';
+import SkillInventory from '@components/SkillInventory';
 
 const TABS_Manager = [
   {
@@ -24,6 +25,11 @@ const TABS_Manager = [
     name: 'Tracking System',
     path: 'tracking',
     component: Cal,
+  },
+  {
+    name: 'Skill Summary',
+    path: 'skill',
+    component: SkillInventory
   }
 ];
 

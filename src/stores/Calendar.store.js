@@ -10,8 +10,10 @@ class Calendar {
   @observable lastName;
   @observable availability;
   @observable regularAvail;
+  @observable timeSheet;
 
   constructor(id) {
+    this.timeSheet = {};
     this.availability = [];
     this.regularAvail = {};
     this.year = moment().year();
