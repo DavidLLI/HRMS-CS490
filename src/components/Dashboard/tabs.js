@@ -8,6 +8,7 @@ import Training from '@components/Training';
 import Profile from '@components/Profile';
 import Announcements from '@components/Announcements';
 import Surveys from '@components/Surveys';
+import Performance from '@components/Performance';
 
 const TABS_Manager = [
   {
@@ -15,6 +16,12 @@ const TABS_Manager = [
     path: 'profile',
     component: Profile,
   },
+  {
+    name: "Performance Dashboard",
+    path: "Performance",
+    component: Performance
+  },
+
   {
     name: 'Hiring',
     path: 'hiring',
