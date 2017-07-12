@@ -12,16 +12,15 @@ import Performance from '@components/Performance';
 
 const TABS_Manager = [
   {
+    name: "Performance Dashboard",
+    path: "Performance",
+    component: Performance,
+  },
+  {
     name: 'Profile',
     path: 'profile',
     component: Profile,
   },
-  {
-    name: "Performance Dashboard",
-    path: "Performance",
-    component: Performance
-  },
-
   {
     name: 'Hiring',
     path: 'hiring',
