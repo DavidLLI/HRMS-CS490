@@ -5,6 +5,7 @@ import { Grid, Row, Col,Image} from 'react-bootstrap';
 import { ButtonToolbar,Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProfileE from '@components/ProfileE';
+import SkillChart from '@components/SkillChart';
 
 class ProfileWrap extends Component {
   render() {
@@ -14,6 +15,7 @@ class ProfileWrap extends Component {
       <div>
         <Route exact path={url} component={Profile} />
         <Route path={`${url}/edit`} component={ProfileE} />
+        <Route path={`${url}/chart`} component={SkillChart} />
       </div>
     );
   }
@@ -21,7 +23,7 @@ class ProfileWrap extends Component {
 
 class Profile extends Component {
   static displayName = 'Profile';
-  
+
   render() {
     return (
     <Grid>
@@ -30,8 +32,8 @@ class Profile extends Component {
              <PageHeader>
                Sam Smith
                </PageHeader>
-               
-           
+
+
         </Col>
           <Col xsPush={5} md={4}>
           <ButtonToolbar>
@@ -39,7 +41,7 @@ class Profile extends Component {
           </ButtonToolbar>
           </Col>
           <Col xsPush={2} md={4}>
-            <Image 
+            <Image
               style={{width: 50, height: 'auto'}}
               src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" responsive />
           </Col>
@@ -50,38 +52,38 @@ class Profile extends Component {
       </Row>
         <Row>
           <Col xs={6} md={4}>
-            <Image 
+            <Image
               style={{width: 200, height: 'auto'}}
               src="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" responsive />
           </Col>
           <Col xs={6} md={4}>
             <Row>
                CONTACT INFORMATION
-            </Row> 
+            </Row>
             <Row>
                ------------------------------
-            </Row> 
+            </Row>
             <Row>
                Email: SamSmith@gmail.com
-            </Row> 
+            </Row>
             <Row>
                Mobile: +1(519)-729-1034
-            </Row> 
+            </Row>
             <Row>
               ———————————————————————————————
-            </Row> 
+            </Row>
             <Row>
                GENERAL INFORMATION
-            </Row> 
+            </Row>
             <Row>
                ------------------------------
-            </Row> 
+            </Row>
             <Row>
                Birthday: July,4th 1990
-            </Row> 
+            </Row>
             <Row>
               Department: Sales
-            </Row> 
+            </Row>
             <Row>
               Supervisor: Gigi Green
             </Row>
@@ -90,29 +92,38 @@ class Profile extends Component {
             </Row>
             <Row>
               ———————————————————————————————
-            </Row> 
+            </Row>
             <Row>
-               ADDITIONAL INFORMATION
-            </Row> 
+                SKILL INVENTORY INFORMATION
+            </Row>
             <Row>
                ------------------------------
-            </Row> 
+            </Row>
             <Row>
                Skills: PHP,Java,HTML,CSS,C++,JavaScript
-            </Row> 
+            </Row>
             <Row>
               Interests: Tennis, football, piano
-            </Row> 
-           
+            </Row>
+            <Row>
+              ———————————————————————————————
+            </Row>
+            <Row>
+                ADDITIONAL INFORMATION
+            </Row>
+            <Row>
+               ------------------------------
+            </Row>
+
 
           </Col>
         </Row>
         <Row>
               ————————————————————————————————————————————————————————————————————————
             </Row>
-        
+
         <Row>
-            
+
             </Row>
         <Row>
            <Col xsPush={5} md={4}>
@@ -122,7 +133,14 @@ class Profile extends Component {
             </Link>
           </ButtonToolbar>
           </Col>
-           
+           <Col xsPush={5} md={4}>
+          <ButtonToolbar>
+            <Link to='/dashboard/profile/chart'>
+              <Button bsStyle="primary">Manage</Button>
+            </Link>
+          </ButtonToolbar>
+          </Col>
+
         </Row>
       </Grid>
     );
