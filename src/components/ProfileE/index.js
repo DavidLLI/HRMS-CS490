@@ -2,9 +2,39 @@ import React, { Component } from 'react';
 import { PageHeader } from 'react-bootstrap';
 import { Grid, Row, Col,Image} from 'react-bootstrap';
 import { ButtonToolbar,Button } from 'react-bootstrap';
-import { Form, FormGroup,ControlLabel,FormControl,Checkbox} from "react-bootstrap";
-class Profile extends Component {
+import { Form, FormGroup,ControlLabel,FormControl,Checkbox, DropdownButton, MenuItem } from "react-bootstrap";
+import { observer } from 'mobx-react';
+import UserStore from '@stores/User.store';
+
+@observer class Profile extends Component {
   static displayName = 'ProfileE';
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      department: UserStore.department
+    }
+
+    this.deptDropdown = {
+      1: 'Production',
+      2: 'Marketing',
+      3: 'Finance',
+      4: 'HR'
+    };
+
+    this.onDeptChange = this.onDeptChange.bind(this);
+    this.handleClickSave = this.handleClickSave.bind(this);
+  }
+
+  onDeptChange(event) {
+    this.setState({department: this.deptDropdown[event]});
+  }
+
+  handleClickSave() {
+    const obj = {department: this.state.department};
+    UserStore.updateProfile(obj);
+  }
   
   render() {
     return (
@@ -17,11 +47,6 @@ class Profile extends Component {
                
            
         </Col>
-          <Col xsPush={5} md={4}>
-          <ButtonToolbar>
-            <Button bsStyle="primary"  onClick= {this.handleClickLogout}>Logout</Button>
-          </ButtonToolbar>
-          </Col>
           <Col xsPush={2} md={4}>
             <Image 
               style={{width: 50, height: 'auto'}}
@@ -81,7 +106,12 @@ class Profile extends Component {
                    Department
                 </Col>
                 <Col sm={10}>
-                    <FormControl type="department" placeholder="Department" />
+                    <DropdownButton bsStyle='Default' title={this.state.department} onSelect={this.onDeptChange} >
+                      <MenuItem eventKey='1'>{this.deptDropdown[1]}</MenuItem>
+                      <MenuItem eventKey='2'>{this.deptDropdown[2]}</MenuItem>
+                      <MenuItem eventKey='3'>{this.deptDropdown[3]}</MenuItem>
+                      <MenuItem eventKey='4'>{this.deptDropdown[4]}</MenuItem>
+                    </DropdownButton>
                 </Col>
             </FormGroup>
             
@@ -174,12 +204,6 @@ class Profile extends Component {
       </Grid>
     );
 
-  }
-   handleClickSave(){
-    window.location = 'profile';
-  }
-  handleClickLogout(){
-    window.location = 'login';
   }
 }
 

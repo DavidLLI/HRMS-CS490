@@ -5,7 +5,7 @@ import { Row, Col, Nav, NavItem } from 'react-bootstrap';
 import UserStore from '@stores/User.store';
 import TopNavBar from './TopNavBar';
 import TABS from './tabs';
-import { observer } from 'mobx-react';
+import { observer, computed } from 'mobx-react';
 import './styles.css';
 
 import AuthStore from '@stores/Auth.store';
@@ -24,6 +24,7 @@ import AuthStore from '@stores/Auth.store';
     this.setState({ currUrl: selectedTab });
   }
 
+
   render() {
     const currUrl = this.props.match.url;
     const activeTab = UserStore.type;
@@ -33,6 +34,13 @@ import AuthStore from '@stores/Auth.store';
     }
     if(!activeTab){
       return(
+        <div>
+        </div>
+      );
+    }
+
+    if (!activeTab) {
+      return (
         <div>
         </div>
       );

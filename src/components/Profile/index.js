@@ -4,8 +4,11 @@ import { PageHeader } from 'react-bootstrap';
 import { Grid, Row, Col,Image} from 'react-bootstrap';
 import { ButtonToolbar,Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import UserStore from '@stores/User.store';
 import ProfileE from '@components/ProfileE';
+import { observer } from 'mobx-react';
 import SkillChart from '@components/SkillChart';
+
 
 class ProfileWrap extends Component {
   render() {
@@ -21,7 +24,7 @@ class ProfileWrap extends Component {
   }
 }
 
-class Profile extends Component {
+@observer class Profile extends Component {
   static displayName = 'Profile';
 
   render() {
@@ -82,8 +85,8 @@ class Profile extends Component {
                Birthday: July,4th 1990
             </Row>
             <Row>
-              Department: Sales
-            </Row>
+              {'Department: ' + UserStore.department}
+            </Row> 
             <Row>
               Supervisor: Gigi Green
             </Row>
