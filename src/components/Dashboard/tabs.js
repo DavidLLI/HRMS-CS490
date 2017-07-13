@@ -9,33 +9,28 @@ import Profile from '@components/Profile';
 import Announcements from '@components/Announcements';
 import Surveys from '@components/Surveys';
 import Performance from '@components/Performance';
+import PayrollPage from '@components/Payroll';
 
 const TABS_Manager = [
+  {
+    name: "Performance Dashboard",
+    path: "Performance",
+    component: Performance
+  },
   {
     name: 'Profile',
     path: 'profile',
     component: Profile,
   },
   {
-    name: "Performance Dashboard",
-    path: "Performance",
-    component: Performance
-  },
-
-  {
     name: 'Hiring',
     path: 'hiring',
     component: Hiring,
   },
   {
-    name: 'Tracking System',
-    path: 'tracking',
-    component: Cal,
-  },
-  {
-    name: 'Skill Summary',
-    path: 'skill',
-    component: SkillInventory
+    name: 'Payroll System',
+    path: 'payroll',
+    component: PayrollPage
   }
 ];
 

@@ -18,7 +18,8 @@ class timesheetPage extends Component {
 	}
 
 	onChangeHandler(event) {
-		if (event.target.value >= 0 && event.target.value <= 24) {
+		let newHour = parseInt(event.target.value);
+		if (Number.isInteger(newHour) && event.target.value >= 0 && event.target.value <= 24) {
 			this.setState({hours: event.target.value});
 		}
 	}

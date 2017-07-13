@@ -25,6 +25,17 @@ class Calendar {
     this.month = month;
   }
 
+  @action submitTimeSheet(date, hour) {
+    const obj = { date: date, hours: hour };
+    axios.post('http://localhost:4000/api/employee/timeSheet/username/' + AuthStore.username, obj)
+    .then(() => {
+      this.getYearAvailability(this.year, this.month);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   @action requestSpecialAvail(date, start, end) {
   	const obj = {date: date, time: {startTime: start, endTime: end}};
   	axios.post('http://localhost:4000/api/employee/specialAvail/username/' + AuthStore.username, obj)
@@ -123,11 +134,24 @@ class Calendar {
           }
           this.availability.push(availabilityObj);
         } 
-        
       })
       .catch((error) => {
         console.log(error);
       });
+      axios.get('http://localhost:4000/api/employee/timeSheet/username/' + AuthStore.username + '/date/' + date.format('YYYY-MM-DD'))
+      .then((data) => {
+        if (data.data !== '') {
+          let timeSheetObj = {};
+          timeSheetObj.title = data.data + ' hours reported';
+          timeSheetObj.hexColor = '0000ff';
+          timeSheetObj.start = new Date(year, month, day);
+          timeSheetObj.end = new Date(year, month, day);
+          this.availability.push(timeSheetObj);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
       date = date.add(1, 'days');
     }
   }

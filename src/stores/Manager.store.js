@@ -11,7 +11,7 @@ class Manager {
   }
 
   @action getAllEmployees() {
-    axios.get('http://localhost:4000/api/employee/' )
+    axios.get('http://localhost:4000/api/employee')
     .then((data) => {
       _.forEach(data.data, (employeedata) =>{
         this.allemployees[employeedata.username] = employeedata;

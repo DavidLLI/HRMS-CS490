@@ -1,0 +1,23 @@
+.payrollLabel {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	font-size: 30px;
+}
+
+.deptDropdown {
+	position: relative;
+	left: 10px;
+	top: -3px;
+}
+
+.payrollInput {
+	position: relative;
+	left: 3px;
+	height: 80%;
+}
+
+.dateContainer {
+	display: flex;
+	flex-direction: row;
+}
