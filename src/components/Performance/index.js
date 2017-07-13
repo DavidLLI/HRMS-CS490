@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-
-
+import { Row, Col, Nav, NavItem } from 'react-bootstrap';
+import {observer} from 'mobx-react';
 import Chart from 'react-chartjs'
 
 class PerformanceWrap extends Component {
@@ -17,8 +17,6 @@ class PerformanceWrap extends Component {
   }
 }
 
-
-
 class Performance extends Component {
   state = {
     linechartData: {
@@ -26,15 +24,15 @@ class Performance extends Component {
       datasets: [{
         label: 'New Hiring',
         data: [12, 2, 2, 1, 5, 4, 8],
-        fillColor: "rgba(153,255,51,0.6)"
+        fillColor: "rgba(153,255,51,0.2)"
       },{
         label: 'Terminate',
         data: [-2, -2, 0, -3, -2, 0, 2],
-        fillColor: "rgba(0,10,220,0.5)"
+        fillColor: "rgba(0,10,220,0.2)"
       },{
         label: 'Production Needs',
         data: [10, 28, 23, 22, 27, 30, 30],
-        fillColor: "rgba(255,153,0,0.6)"
+        fillColor: "rgba(255,153,0,0.2)"
       }]
     },
     linesourceData: {
@@ -163,40 +161,41 @@ class Performance extends Component {
   }
   };
   render(){
+
     return (
-      <div class="container">
+      <div class="container-fluid">
         <h2>Performance Dashboard</h2>
-        <div class="row">
-          <div class="col-xs-6">
+        <Row>
+          <Col sm={6} className="Graph">
             <h3>Resource Planning </h3>
-            <Chart.Line data={this.state.linechartData} width="600" height="250"/>
-          </div>
-          <div class="col-xs-4">
-            <h3>Current Month Resource Needs</h3>
-            <Chart.Bar data={this.state.barchartData} width="600" height="250"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div>
+            <Chart.Line data={this.state.linechartData} width="500" height="250"/>
+          </Col>
+          <Col sm={6} className="Graph">
             <h3>Recruting Dashboard - Resouce Trends </h3>
-            <Chart.Line data={this.state.linesourceData} width="600" height="250" />
-          </div>
-          <div>
-            <h3>Project Progress</h3>
-            <Chart.Radar data={this.state.radarData} width="600" height="250"/>
-          </div>
-        </div>
+            <Chart.Line data={this.state.linesourceData} width="500" height="250" />
+          </Col>
+        </Row>
 
-        <div class="row">
-          <div>
+          <Row>
+          <Col sm={6} className="Graph">
+            <h3>Current Month Resource Needs</h3>
+            <Chart.Bar data={this.state.barchartData} width="500" height="250"/>
+          </Col>
+          <Col sm={6} className="Graph">
+            <h3>Project Progress</h3>
+            <Chart.Radar data={this.state.radarData} width="500" height="250"/>
+          </Col>
+        </Row>
+
+          <Row>
+          <Col sm={6} className="Graph">
             <h3>Employee Engagement </h3>
-            <Chart.Doughnut data={this.state.donutData} options={this.state.donutoptions} width="600" height="250"/>
-          </div>
-          <div>
-            <Chart.PolarArea data={this.state.polarData} width="600" height="250"/>
-          </div>
-        </div>
+            <Chart.Doughnut data={this.state.donutData} options={this.state.donutoptions} width="500" height="250"/>
+          </Col>
+          <Col sm={6} className="Graph">
+            <Chart.PolarArea data={this.state.polarData} width="500" height="250"/>
+          </Col>
+        </Row>
       </div>
     );
   }
