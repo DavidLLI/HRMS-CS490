@@ -26,10 +26,16 @@ import AuthStore from '@stores/Auth.store';
 
   render() {
     const currUrl = this.props.match.url;
-    const activeTab = UserStore.type || 'employee';
+    const activeTab = UserStore.type;
 
     if (!AuthStore.isLoggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
+    }
+    if(!activeTab){
+      return(
+        <div>
+        </div>
+      );
     }
 
     return (

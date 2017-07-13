@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { Row, Col, Nav, NavItem } from 'react-bootstrap';
 import {observer} from 'mobx-react';
-import Chart from 'react-chartjs'
+import Chart  from 'react-chartjs';
+
 
 class PerformanceWrap extends Component {
   render() {
@@ -16,6 +17,43 @@ class PerformanceWrap extends Component {
     );
   }
 }
+
+var opt1c = {
+      inGraphDataShow : true,
+      animationEasing: "linear",
+      annotateDisplay : true,
+      spaceBetweenBar : 5,
+      graphTitleFontSize: 18
+}
+
+
+var donutData1: {
+  datasets: [
+    {
+      value: 80,
+      color:"#F7464A",
+      highlight: "#FF5A5E",
+      label: "Very Satisfied"
+    },
+    {
+      value: 30,
+      color: "#46BFBD",
+      highlight: "#5AD3D1",
+      label: "Satisfied"
+    },
+    {
+      value: 15,
+      color: "#FDB45C",
+      highlight: "#FFC870",
+      label: "Needs Improvement"
+    }
+  ],
+  labels: [
+    'Very Satisfied',
+    'Satisfied',
+    'Needs Improvement'
+  ]
+};
 
 class Performance extends Component {
   state = {
@@ -129,68 +167,131 @@ class Performance extends Component {
         label: "Dark Grey"
       }
     ],
-    donutData: [
-	{
-		value: 80,
-		color:"#F7464A",
-		highlight: "#FF5A5E",
-		label: "Very Satisfied"
-	},
-	{
-		value: 30,
-		color: "#46BFBD",
-		highlight: "#5AD3D1",
-		label: "Satisfied"
-	},
-	{
-		value: 15,
-		color: "#FDB45C",
-		highlight: "#FFC870",
-		label: "Needs Improvement"
-	}
-],
- myoptions: {
-    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-},
-  donutoptions: {
-    pieceLabel: {
-    mode: 'label',
-    arc: true,
-    position: 'border'
-  }
-  }
+    donutData1: [
+      {
+        value: 80,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Very Satisfied"
+      },
+      {
+        value: 30,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Satisfied"
+      },
+      {
+        value: 15,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Needs Improvement"
+      }
+    ],
+
+    donutData2: [
+      {
+        value: 40,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Very Satisfied"
+      },
+      {
+        value: 60,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Satisfied"
+      },
+      {
+        value: 25,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Needs Improvement"
+      }
+    ],
+
+    donutData3: [
+      {
+        value: 55,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Very Satisfied"
+      },
+      {
+        value: 43,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Satisfied"
+      },
+      {
+        value: 35,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Needs Improvement"
+      }
+    ],
+    myoptions: {
+      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    },
+    donutoptions: {
+      pieceLabel: {
+        mode: 'label',
+        arc: true,
+        position: 'border'
+      }
+    }
   };
+
+  componentDidMount() {
+    const legend = this.refs.test.getChart().generateLegend();
+
+    this.setState({ legend });
+  }
+
   render(){
 
     return (
-      <div class="container-fluid">
-        <h2>Performance Dashboard</h2>
+      <div className="container">
+        <h2>Welcome to HR Performance Dashboard!</h2>
+        <Row>
+        <Col sm={4} className="Graph">
+          <h3>Employee Engagement </h3>
+          <Chart.Doughnut ref="test" data={this.state.donutData1} options={opt1c} width="400" height="250"/>
+          <div dangerouslySetInnerHTML={{ __html: this.state.legend }} />
+        </Col>
+        <Col sm={4} className="Graph">
+          <h3>Employee Performance </h3>
+          <Chart.Doughnut data={this.state.donutData2} options={this.state.donutoptions} width="400" height="250"/>
+        </Col>
+        <Col sm={4} className="Graph">
+          <h3>Employee Training Progress </h3>
+          <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
+        </Col>
+        </Row>
         <Row>
           <Col sm={6} className="Graph">
             <h3>Resource Planning </h3>
-            <Chart.Line data={this.state.linechartData} width="500" height="250"/>
+            <Chart.Line data={this.state.linechartData} options={opt1c} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <h3>Recruting Dashboard - Resouce Trends </h3>
-            <Chart.Line data={this.state.linesourceData} width="500" height="250" />
+            <Chart.Line data={this.state.linesourceData} options={opt1c} width="500" height="250" />
           </Col>
         </Row>
-
-          <Row>
+        <Row>
           <Col sm={6} className="Graph">
             <h3>Current Month Resource Needs</h3>
-            <Chart.Bar data={this.state.barchartData} width="500" height="250"/>
+            <Chart.Bar data={this.state.barchartData} options={opt1c} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <h3>Project Progress</h3>
-            <Chart.Radar data={this.state.radarData} width="500" height="250"/>
+            <Chart.Radar data={this.state.radarData} options={opt1c} width="500" height="250"/>
           </Col>
         </Row>
 
           <Row>
           <Col sm={6} className="Graph">
             <h3>Employee Engagement </h3>
-            <Chart.Doughnut data={this.state.donutData} options={this.state.donutoptions} width="500" height="250"/>
+            <Chart.Doughnut data={this.state.donutData1} options={this.state.donutoptions} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <Chart.PolarArea data={this.state.polarData} width="500" height="250"/>
