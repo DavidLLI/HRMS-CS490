@@ -1,0 +1,40 @@
+.payrollTable {
+  width: 100%;
+}
+
+.payrollTable td {
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 15px;
+  color: #4A4A4A;
+}
+.payrollTable th {
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 15px;
+  color: #4A4A4A;
+}
+.payrollTable :not(thead) tr:hover {
+  background-color: #CDCCCC;
+}
+
+.Requested {
+  background-color: #ffff00; 
+}
+
+.Approved {
+  background-color: #008000;
+}
+
+.Rejected {
+  background-color: #ff0000;
+}
+
+.newPayrollModal {
+  height: 1000px;
+  width: 80vw;
+}

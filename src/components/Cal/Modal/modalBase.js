@@ -144,7 +144,11 @@ class modalBase extends Component {
 				}
 				{
 					this.state.activePage === 'timehseet' &&
-					<TimesheetPage />
+					<TimesheetPage
+						timeChosen={timeChosen}
+						onEnter={this.onEnter}
+						onHide={this.props.onHide}
+					/>
 				}
 				
 			</Modal>

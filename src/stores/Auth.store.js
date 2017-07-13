@@ -6,11 +6,8 @@ import Cookies from 'universal-cookie';
 class Auth {
   @observable isLoggedIn = false;
   @observable logInFail = false;
-
   @observable signupError = false;
-
   @observable username = '';
-
   @observable activeTab = 'login';
 
   constructor() {
