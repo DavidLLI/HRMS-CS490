@@ -2,20 +2,36 @@ import { observable, action } from 'mobx';
 import axios from 'axios';
 import moment from 'moment';
 import Cookies from 'universal-cookie';
+import AuthStore from '@stores/Auth.store';
+import ManagerStore from '@stores/Manager.store';
 
 class User {
   @observable firstName;
   @observable lastName;
   @observable type;
+  @observable department;
 
   constructor(id) {
     this.firstName = '';
     this.lastName = '';
     this.type = '';
+    this.department = '';
   }
 
   @action logIn(username) {
     this.fetchFromDB(username);
+  }
+
+  @action updateProfile(obj) {
+    let postObj = obj;
+    postObj.username = AuthStore.username;
+    axios.post('http://localhost:4000/api/employee', obj)
+    .then((data) => {
+      this.fetchFromDB(AuthStore.username);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   fetchFromDB = async (username) => {
@@ -24,6 +40,10 @@ class User {
       this.firstName = data.data[0].firstName;
       this.lastName = data.data[0].lastName;
       this.type = data.data[0].type;
+      this.department = data.data[0].department;
+      if (this.type === 'manager') {
+        ManagerStore.getAllEmployees();
+      }
     })
     .catch((error) => {
       console.log(error);

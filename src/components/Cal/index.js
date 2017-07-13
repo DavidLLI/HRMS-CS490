@@ -116,6 +116,10 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
     };
   }
 
+  allDayAccessor(event) {
+    return event.hexColor === '0000ff';
+  }
+
   render() {
     if (!AuthStore.isLoggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
@@ -139,6 +143,7 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
             onNavigate={this.onChangeDate}
             style={{height: 700}}
             eventPropGetter={this.eventStyleGetter}
+            allDayAccessor={this.allDayAccessor}
           />
         </Row>
         <Modal
