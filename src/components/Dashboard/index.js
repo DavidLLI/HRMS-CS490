@@ -32,6 +32,12 @@ import AuthStore from '@stores/Auth.store';
     if (!AuthStore.isLoggedIn) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+    if(!activeTab){
+      return(
+        <div>
+        </div>
+      );
+    }
 
     if (!activeTab) {
       return (
