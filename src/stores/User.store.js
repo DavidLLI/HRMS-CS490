@@ -10,12 +10,14 @@ class User {
   @observable lastName;
   @observable type;
   @observable department;
+  @observable major;
 
   constructor(id) {
     this.firstName = '';
     this.lastName = '';
     this.type = '';
     this.department = '';
+    this.major = '';
   }
 
   @action logIn(username) {
@@ -41,6 +43,7 @@ class User {
       this.lastName = data.data[0].lastName;
       this.type = data.data[0].type;
       this.department = data.data[0].department;
+      this.major = data.data[0].major;
       if (this.type === 'manager') {
         ManagerStore.getAllEmployees();
       }
