@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import { Row, Col, Nav, NavItem } from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import {observer} from 'mobx-react';
 import Chart  from 'react-chartjs';
 import ManagerStore from '@stores/Manager.store';
 import PayrollStore from '@stores/Payroll.store';
 import moment from 'moment';
-import { Table, Modal } from 'react-bootstrap';
 import _ from 'lodash';
-import {LineChart, Pie, Sector, PieChart, Line, XAxis, YAxis, CartesianGrid, Cell, Tooltip, Legend } from 'recharts';
+import './legend.css';
+
 
 class PerformanceWrap extends Component {
   render() {
@@ -22,126 +21,28 @@ class PerformanceWrap extends Component {
     );
   }
 }
-const linedata = [
-  {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-  {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-  {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-  {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-  {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-  {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-  {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-];
-
-const DonutChart1 = [{name: 'Approved', value: 10},
-{name: 'Requested', value: 8},
-{name: 'Cancelled', value: 2}];
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-const CustomizedLabel = React.createClass({
-  render () {
-    const {x, y, stroke, value} = this.props;
-
-    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>
-  }
-});
-const CustomizedAxisTick = React.createClass({
-  render () {
-    const {x, y, stroke, payload} = this.props;
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-      </g>
-    );
-  }
-});
-
-const renderActiveShape = (props) => {
-  const RADIAN = Math.PI / 180;
-  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-    fill, payload, percent, value } = props;
-    const sin = Math.sin(-RADIAN * midAngle);
-    const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
-    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-    const ey = my;
-    const textAnchor = cos >= 0 ? 'start' : 'end';
-
-    return (
-      <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
-      <Sector
-      cx={cx}
-      cy={cy}
-      innerRadius={innerRadius}
-      outerRadius={outerRadius}
-      startAngle={startAngle}
-      endAngle={endAngle}
-      fill={fill}
-      />
-      <Sector
-      cx={cx}
-      cy={cy}
-      startAngle={startAngle}
-      endAngle={endAngle}
-      innerRadius={outerRadius + 6}
-      outerRadius={outerRadius + 10}
-      fill={fill}
-      />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-      {`(Rate ${(percent * 100).toFixed(2)}%)`}
-      </text>
-      </g>
-    );
-  };
-
-  var opt1c = {
-    inGraphDataShow : true,
-    animationEasing: "linear",
-    annotateDisplay : true,
-    spaceBetweenBar : 5,
-    graphTitleFontSize: 18
-  }
 
 var options = {
   labelScale: "yes",
 }
+var ChartLegend = React.createClass({
+  propTypes: {
+    datasets: React.PropTypes.array.isRequired
+  },
 
+  render: function () {
+    var datasets = _.map(this.props.datasets, function (ds) {
+      return <li><span className="legend-color-box" style={{ backgroundColor: ds.strokeColor }}></span> { ds.label }</li>;
+    });
 
-var donutData1: {
-  datasets: [
-    {
-      value: 80,
-      color:"#F7464A",
-      highlight: "#FF5A5E",
-      label: "Very Satisfied"
-    },
-    {
-      value: 30,
-      color: "#46BFBD",
-      highlight: "#5AD3D1",
-      label: "Satisfied"
-    },
-    {
-      value: 15,
-      color: "#FDB45C",
-      highlight: "#FFC870",
-      label: "Needs Improvement"
-    }
-  ],
-  labels: [
-    'Very Satisfied',
-    'Satisfied',
-    'Needs Improvement'
-  ]
-};
+    return (
+      <ul className={ this.props.title + "-legend" }>
+        { datasets }
+      </ul>
+    );
+  }
+});
+
 
 @observer class Performance extends Component {
 
@@ -317,7 +218,22 @@ var donutData1: {
         label: "Cancelled"
       }
     ],
-
+    payrollbydepartment: {
+      labels: ['Production', 'HR', 'SM', 'Accounting'],
+      datasets: [{
+        label: 'Requested',
+        data: [3, 0, 0, 1 ],
+        fillColor: "rgba(153,255,51,0.6)"
+      },{
+        label: 'Approved',
+        data: [1, 0, 0, 0 ],
+        fillColor: "rgba(0,10,220,0.5)"
+      },{
+        label: 'Cancelled',
+        data: [4, 0, 0 , 1],
+        fillColor: "rgba(255,153,0,0.6)"
+      }]
+    },
     donutData2: [
       {
         value: 40,
@@ -338,7 +254,6 @@ var donutData1: {
         label: "Needs Improvement"
       }
     ],
-
     donutData3: [
       {
         value: 55,
@@ -359,9 +274,6 @@ var donutData1: {
         label: "Needs Improvement"
       }
     ],
-    myoptions: {
-      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-    },
     donutoptions: {
       pieceLabel: {
         mode: 'label',
@@ -369,24 +281,17 @@ var donutData1: {
         position: 'border'
       }
     }
-  };
 
+  };
   componentDidMount() {
-    const legend = this.refs.test.getChart().generateLegend();
+    const legend = this.refs.chart.getChart().generateLegend();
     this.setState({ legend });
   }
 
-  getInitialState() {
-      return {
-        activeIndex: 0,
-      };
-  }
-
-  renderLabel(props) {
-      return <text x={props.x} y={props.y}>{props.value}</text>;
-  }
   render(){
+
     let trArray = [];
+    var legend = this.state && this.state.legend || '';
 
     _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
       const obj = {
@@ -421,16 +326,58 @@ var donutData1: {
 
     //for payroll request data *************
     const payrollD = this.state.payrollprogress;
+    let HRdep = [0,0,0];
+    let Productdep = [0,0,0];
+    let Salesdep = [0,0,0];
+    let Suppiesdep = [0,0,0];
+    let CustomerRelationsdep = [0,0,0];
+    let Accountdep = [0,0,0];
     let request = 0;
-    let approved  = 0;
-    let cancelled =0;
+    let approved = 0;
+    let cancelled = 0;
     _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-      if(payroll.status == "Requested"){
-        request = request + 1;
-      } else if(payroll.status == "Approved"){
-        approved = approved + 1;
-      } else {
-        cancelled = cancelled +1;
+      if(payroll.department == "Production"){
+        if(payroll.status == "Requested"){
+          Productdep[0]++;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Productdep[1]++;
+        } else {
+          Productdep[2]++;
+        }
+      } else if (payroll.department == "HR"){
+        if(payroll.status == "Requested"){
+          HRdep[0] = HRdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          HRdep[1] = HRdep[1] +1;
+          approved = approved +1;
+        } else {
+          HRdep[2] = HRdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else if(payroll.department == "Marketing"){
+        if(payroll.status == "Requested"){
+          Salesdep[0] =  Salesdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          Salesdep[1] =  Salesdep[1] +1;
+          approved = approved +1;
+        } else {
+          Salesdep[2] =  Salesdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else { //finance
+        if(payroll.status == "Requested"){
+          Accountdep[0] = Accountdep[0] + 1;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Accountdep[1] = Accountdep[1] + 1;
+            approved = approved +1;
+        } else {
+          Accountdep[2] = Accountdep[2] + 1;
+          cancelled = cancelled +1;
+        }
       }
     });
 
@@ -438,81 +385,65 @@ var donutData1: {
     payrollD[1].value = approved;
     payrollD[2].value = cancelled;
 
-    //
+    // other Graph: payrollbydepartment
+    const payrollDepartment = this.state.payrollbydepartment;
+    payrollDepartment.datasets[0].data= [Productdep[0], HRdep[0], Salesdep[0],Accountdep[0]]
+    payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]]
+    payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]]
 
     return (
       <div className="container">
-      <LineChart width={600} height={300} data={linedata}
-            margin={{top: 20, right: 30, left: 20, bottom: 10}}>
-       <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick/>}/>
-       <YAxis/>
-       <CartesianGrid strokeDasharray="3 3"/>
-       <Tooltip/>
-       <Legend />
-       <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />}/>
-       <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
-
-      <PieChart width={800} height={400} >
-           <Pie
-             label={this.renderLabel}
-             activeIndex={this.state.activeIndex}
-             data={DonutChart1}
-             cx={300}
-             cy={200}
-             innerRadius={60}
-             outerRadius={80}
-             fill="#8884d8" />
-
-        </PieChart>
-
-
-        <h2>Welcome to HR Performance Dashboard!</h2>
-        <h2>manager: {num_manager}</h2>
-        <h2>employee: {num_employee}</h2>
-        <Row>
-        <Col sm={4} className="Graph">
-          <h3>Employee Engagement </h3>
-          <Chart.Doughnut ref="test" data={this.state.donutData1} options={opt1c} width="400" height="250"/>
-          <div dangerouslySetInnerHTML={{ __html: this.state.legend }} />
-        </Col>
-        <Col sm={4} className="Graph">
-          <h3>Employee Performance </h3>
-          <Chart.Doughnut data={this.state.donutData2} options={this.state.donutoptions} width="400" height="250"/>
-        </Col>
-        <Col sm={4} className="Graph">
-          <h3>Employee Training Progress </h3>
-          <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
-        </Col>
-        </Row>
+      <h2>Welcome to HR Performance Dashboard!</h2>
+      <Row>
+      <Col sm={4} className="Graph">
+        <h3>Employee Engagement </h3>
+        <Chart.Doughnut ref="test" data={this.state.donutData1} width="400" height="250"/>
+        <ul>
+            <li><span class="mylegend"></span> Super Awesome</li>
+            <li><span class="mylegend"></span> Awesome</li>
+            <li><span class="mylegend"></span> Kinda Awesome</li>
+            <li><span class="mylegend"></span> Not Awesome</li>
+        </ul>
+      </Col>
+      <Col sm={4} className="Graph">
+        <h3> Performance  Evaluations</h3>
+        <Chart.Doughnut ref="chart" data={this.state.donutData2} options={this.state.donutoptions} width="400" height="250"/>
+        <div dangerouslySetInnerHTML={{ __html: legend }} />
+      </Col>
+      <Col sm={4} className="Graph">
+        <h3> Training Progress </h3>
+        <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
+      </Col>
+      </Row>
         <Row>
           <Col sm={6} className="Graph">
             <h3>Resource Planning </h3>
-            <Chart.Line data={this.state.linechartData} options={opt1c} width="500" height="250"/>
+            <Chart.Line data={this.state.linechartData} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <h3>Recruting Dashboard - Resouce Trends </h3>
-            <Chart.Line data={this.state.linesourceData} options={opt1c} width="500" height="250" />
+            <Chart.Line data={this.state.linesourceData} width="500" height="250" />
           </Col>
         </Row>
         <Row>
           <Col sm={6} className="Graph">
-            <h3>Current Month Resource Needs</h3>
-            <Chart.Bar data={this.state.dynambarData} options={opt1c} width="500" height="250"/>
+            <h3>Current Month Resource Needs DYNAM</h3>
+            <Chart.Bar data={this.state.dynambarData} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <h3>Project Progress</h3>
-            <Chart.Radar data={this.state.radarData} options={opt1c} width="500" height="250"/>
+            <Chart.Radar data={this.state.radarData} width="500" height="250"/>
           </Col>
         </Row>
 
-          <Row>
+        <Row>
           <Col sm={6} className="Graph">
-            <h3>Payroll Progress </h3>
+            <h3>Payroll Progress DYNAM </h3>
               <Chart.Doughnut data={this.state.payrollprogress} options={options} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
-            <Chart.PolarArea data={this.state.polarData} width="500" height="250"/>
+            <h3>Payroll by Department DYNAM </h3>
+              <Chart.Bar data={this.state.payrollbydepartment} options={options} width="500" height="250"/>
           </Col>
         </Row>
       </div>

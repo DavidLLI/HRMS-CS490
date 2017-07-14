@@ -7,8 +7,8 @@
 .back {
   position: relative;
   top: 15px;
-  left: 25px;
-  background-color: #9ADAE1;
+  left: 5px;
+  background-color: #337AB7;
   color: white;
   width: 40px;
   -webkit-transition-duration: 0.4s;
@@ -17,8 +17,8 @@
 .apply {
   position: relative;
   top: 15px;
-  left: 1035px;
-  background-color: #9ADAE1;
+  left: 915px;
+  background-color: #337AB7;
   color: white;
   -webkit-transition-duration: 0.4s;
   width: 80px;
@@ -27,8 +27,8 @@
 .contact {
   position: relative;
   top: 15px;
-  left: 1020px;
-  background-color: #9ADAE1;
+  left: 900px;
+  background-color: #337AB7;
   color: white;
   width: 80px;
   -webkit-transition-duration: 0.4s;
@@ -42,5 +42,5 @@
 
 .hiringText {
   height: 800px;
-  background-color: #E9E9E9;
+  background-color: #FFFFFF;
 }

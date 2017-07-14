@@ -1,5 +1,7 @@
 .payrollTable {
+  position: relative;
   width: 100%;
+  top:10px;
 }
 
 .payrollTable td {
@@ -16,6 +18,7 @@
   padding-top: 8px;
   padding-bottom: 8px;
   font-size: 15px;
+  background-color: #C7E5FF;
   color: #4A4A4A;
 }
 .payrollTable :not(thead) tr:hover {
@@ -35,6 +38,11 @@
 }
 
 .newPayrollModal {
-  height: 1000px;
+  height: 1200px;
   width: 80vw;
+}
+
+.newButton {
+  background-color: #337AB7;
+  color: white;
 }

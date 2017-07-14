@@ -17,6 +17,7 @@
   padding-bottom: 8px;
   font-size: 15px;
   color: #4A4A4A;
+  background-color: #C7E5FF;
 }
 .hiringTable :not(thead) tr:hover {
   background-color: #CDCCCC;
@@ -30,7 +31,7 @@
   flex-direction: row;
   position: relative;
   top: 4px;
-  left: 20px;
+  left: 0px;
 }
 
 .hiringPage .container-fluid {
@@ -47,5 +48,5 @@
 .Search {
   position: relative;
   top: 4px;
-  left: 740px;
+  left: 580px;
 }

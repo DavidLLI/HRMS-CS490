@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ManagerStore from '@stores/Manager.store';
 import UserStore from '@stores/User.store';
 import PayrollStore from '@stores/Payroll.store';
-import { Form, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Form, DropdownButton, MenuItem,Button } from 'react-bootstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import _ from 'lodash';
 import moment from 'moment';
@@ -90,7 +90,7 @@ class payrollReq extends Component {
 					</label>
 					
                     <label className='payrollLabel'>
-                    	Total amount: 
+                    	Total amount:   
                     	{this.state.totalAmount}
                     </label>
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Modal } from 'react-bootstrap';
+import { Table, Modal, Button } from 'react-bootstrap';
 import PayrollReqPage from './modal/payrollReq';
 import PayrollStore from '@stores/Payroll.store';
 import moment from 'moment';
@@ -47,9 +47,7 @@ import './payroll.css';
 		});
 		return (
 			<div>
-				<button onClick={this.handleNewReq}>
-					New payroll
-				</button>
+				<Button className='newButton' onClick={this.handleNewReq}>New Payroll</Button>
 				<Table bordered bsClass="payrollTable">
 				    <thead>
 				        <tr>
