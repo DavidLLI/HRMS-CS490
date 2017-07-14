@@ -3,6 +3,7 @@ import { Route, Redirect, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Row, Col, Nav, NavItem } from 'react-bootstrap';
 import UserStore from '@stores/User.store';
+import Notification from './Notification';
 import TopNavBar from './TopNavBar';
 import TABS from './tabs';
 import { observer, computed } from 'mobx-react';
@@ -42,6 +43,7 @@ import AuthStore from '@stores/Auth.store';
 
     return (
       <div className="container-fluid">
+        <Notification />
         <TopNavBar />
         <Row className="content">
           <Col sm={2} className="sidebar">

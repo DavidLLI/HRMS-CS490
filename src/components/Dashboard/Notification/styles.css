@@ -1,0 +1,17 @@
+.notification {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 480px;
+  height: 320px;
+  background: white;
+  border: #337ab7 1px solid;
+  border-radius: 5px 5px 0 0;
+  z-index: 999;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
