@@ -235,9 +235,9 @@ var ChartLegend = React.createClass({
       }]
     },
      salesProgress:{
-      labels: ["EmployeeName"],
+      labels: ["Name"],
       datasets: [{
-        label: "Performance Score",
+        labels: ["EmpolyeeName"],
          data: [],
          fillColor: "rgba(0,10,220,0.5)"
        }]
@@ -473,6 +473,7 @@ var ChartLegend = React.createClass({
         </Row>
 
         <Row>
+          <h3>Sales Performance DYNAM</h3>
            <Chart.Bar data={this.state.salesProgress} options={options} width="500" height="250"/>
         </Row>
       </div>
