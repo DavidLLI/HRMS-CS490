@@ -4,7 +4,12 @@ import ReactDOM from 'react-dom';
 import { Row, Col, Nav, NavItem } from 'react-bootstrap';
 import {observer} from 'mobx-react';
 import Chart  from 'react-chartjs';
-
+import ManagerStore from '@stores/Manager.store';
+import PayrollStore from '@stores/Payroll.store';
+import moment from 'moment';
+import { Table, Modal } from 'react-bootstrap';
+import _ from 'lodash';
+import {LineChart, Pie, Sector, PieChart, Line, XAxis, YAxis, CartesianGrid, Cell, Tooltip, Legend } from 'recharts';
 
 class PerformanceWrap extends Component {
   render() {
@@ -17,13 +22,96 @@ class PerformanceWrap extends Component {
     );
   }
 }
+const linedata = [
+  {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+  {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+  {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+  {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+  {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+  {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+  {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+];
 
-var opt1c = {
-      inGraphDataShow : true,
-      animationEasing: "linear",
-      annotateDisplay : true,
-      spaceBetweenBar : 5,
-      graphTitleFontSize: 18
+const DonutChart1 = [{name: 'Approved', value: 10},
+{name: 'Requested', value: 8},
+{name: 'Cancelled', value: 2}];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const CustomizedLabel = React.createClass({
+  render () {
+    const {x, y, stroke, value} = this.props;
+
+    return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>
+  }
+});
+const CustomizedAxisTick = React.createClass({
+  render () {
+    const {x, y, stroke, payload} = this.props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+      </g>
+    );
+  }
+});
+
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180;
+  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
+    fill, payload, percent, value } = props;
+    const sin = Math.sin(-RADIAN * midAngle);
+    const cos = Math.cos(-RADIAN * midAngle);
+    const sx = cx + (outerRadius + 10) * cos;
+    const sy = cy + (outerRadius + 10) * sin;
+    const mx = cx + (outerRadius + 30) * cos;
+    const my = cy + (outerRadius + 30) * sin;
+    const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+    const ey = my;
+    const textAnchor = cos >= 0 ? 'start' : 'end';
+
+    return (
+      <g>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+      <Sector
+      cx={cx}
+      cy={cy}
+      innerRadius={innerRadius}
+      outerRadius={outerRadius}
+      startAngle={startAngle}
+      endAngle={endAngle}
+      fill={fill}
+      />
+      <Sector
+      cx={cx}
+      cy={cy}
+      startAngle={startAngle}
+      endAngle={endAngle}
+      innerRadius={outerRadius + 6}
+      outerRadius={outerRadius + 10}
+      fill={fill}
+      />
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+      {`(Rate ${(percent * 100).toFixed(2)}%)`}
+      </text>
+      </g>
+    );
+  };
+
+  var opt1c = {
+    inGraphDataShow : true,
+    animationEasing: "linear",
+    annotateDisplay : true,
+    spaceBetweenBar : 5,
+    graphTitleFontSize: 18
+  }
+
+var options = {
+  labelScale: "yes",
 }
 
 
@@ -55,7 +143,15 @@ var donutData1: {
   ]
 };
 
-class Performance extends Component {
+@observer class Performance extends Component {
+
+  constructor(props){
+    super(props);
+    ManagerStore.getAllEmployees();
+    PayrollStore.getAllPayrolls();
+  }
+
+
   state = {
     linechartData: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
@@ -109,6 +205,20 @@ class Performance extends Component {
         data: [4, 0, 0 , 1, 1, 2],
         fillColor: "rgba(255,153,0,0.6)"
       }]
+    },
+    dynambarData:{
+      labels: ["Amount"],
+      datasets: [{
+        label: "Employees",
+         data: [3],
+         fillColor: "rgba(0,10,220,0.5)"
+       },
+       {
+         label: "Manager",
+         data: [8],
+         fillColor: "rgba(255,153,0,0.6)"
+       }
+      ]
     },
     radarData: {
       labels: ["Initiation", "Planning", "Execution", "Test", "Monitor" ],
@@ -187,6 +297,26 @@ class Performance extends Component {
         label: "Needs Improvement"
       }
     ],
+    payrollprogress: [
+      {
+        value: 80,
+        color:"#FDB45C",
+        highlight: "#FF5A5E",
+        label: "Requested"
+      },
+      {
+        value: 30,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Approved"
+      },
+      {
+        value: 15,
+        color: "#F7464A",
+        highlight: "#FFC870",
+        label: "Cancelled"
+      }
+    ],
 
     donutData2: [
       {
@@ -243,15 +373,103 @@ class Performance extends Component {
 
   componentDidMount() {
     const legend = this.refs.test.getChart().generateLegend();
-
     this.setState({ legend });
   }
 
+  getInitialState() {
+      return {
+        activeIndex: 0,
+      };
+  }
+
+  renderLabel(props) {
+      return <text x={props.x} y={props.y}>{props.value}</text>;
+  }
   render(){
+    let trArray = [];
+
+    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
+      const obj = {
+          request_id: payroll.request_id,
+          department: payroll.department,
+          manager: payroll.manager,
+          timeRequested: moment(payroll.timeRequested).format('YYYY-MM-DD'),
+          startDate: moment(payroll.startDate).format('YYYY-MM-DD'),
+          endDate: moment(payroll.endDate).format('YYYY-MM-DD'),
+          totalAmount: payroll.totalAmount,
+          status: payroll.status
+        };
+        trArray.push(obj);
+    });
+
+    //for manager: employee bar graph*********
+    const newdata = this.state.dynambarData;
+    let num_manager = 0;
+    let num_employee = 0;
+
+
+    _.forEach(ManagerStore.allemployees, (em, emuser) => {
+        if(em.type == "employee"){
+          num_employee = num_employee + 1;
+        } else {
+          num_manager = num_manager + 1;
+        }
+    });
+
+    newdata.datasets[0].data = [num_employee];
+    newdata.datasets[1].data = [num_manager];
+
+    //for payroll request data *************
+    const payrollD = this.state.payrollprogress;
+    let request = 0;
+    let approved  = 0;
+    let cancelled =0;
+    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
+      if(payroll.status == "Requested"){
+        request = request + 1;
+      } else if(payroll.status == "Approved"){
+        approved = approved + 1;
+      } else {
+        cancelled = cancelled +1;
+      }
+    });
+
+    payrollD[0].value = request;
+    payrollD[1].value = approved;
+    payrollD[2].value = cancelled;
+
+    //
 
     return (
       <div className="container">
+      <LineChart width={600} height={300} data={linedata}
+            margin={{top: 20, right: 30, left: 20, bottom: 10}}>
+       <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick/>}/>
+       <YAxis/>
+       <CartesianGrid strokeDasharray="3 3"/>
+       <Tooltip/>
+       <Legend />
+       <Line type="monotone" dataKey="pv" stroke="#8884d8" label={<CustomizedLabel />}/>
+       <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      </LineChart>
+
+      <PieChart width={800} height={400} >
+           <Pie
+             label={this.renderLabel}
+             activeIndex={this.state.activeIndex}
+             data={DonutChart1}
+             cx={300}
+             cy={200}
+             innerRadius={60}
+             outerRadius={80}
+             fill="#8884d8" />
+
+        </PieChart>
+
+
         <h2>Welcome to HR Performance Dashboard!</h2>
+        <h2>manager: {num_manager}</h2>
+        <h2>employee: {num_employee}</h2>
         <Row>
         <Col sm={4} className="Graph">
           <h3>Employee Engagement </h3>
@@ -280,7 +498,7 @@ class Performance extends Component {
         <Row>
           <Col sm={6} className="Graph">
             <h3>Current Month Resource Needs</h3>
-            <Chart.Bar data={this.state.barchartData} options={opt1c} width="500" height="250"/>
+            <Chart.Bar data={this.state.dynambarData} options={opt1c} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <h3>Project Progress</h3>
@@ -290,8 +508,8 @@ class Performance extends Component {
 
           <Row>
           <Col sm={6} className="Graph">
-            <h3>Employee Engagement </h3>
-            <Chart.Doughnut data={this.state.donutData1} options={this.state.donutoptions} width="500" height="250"/>
+            <h3>Payroll Progress </h3>
+              <Chart.Doughnut data={this.state.payrollprogress} options={options} width="500" height="250"/>
           </Col>
           <Col sm={6} className="Graph">
             <Chart.PolarArea data={this.state.polarData} width="500" height="250"/>
