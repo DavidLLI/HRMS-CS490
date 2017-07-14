@@ -7,11 +7,6 @@ import Notif from '@stores/Notification.store';
 
 @observer
 class Notification extends Component {
-  componentDidMount() {
-    Notif.setNotification('Title', 'This is some test content to see how things will look.');
-    Notif.toggleVisibility();
-  }
-
   render() {
     return (
       <div className="notification container" style={{display: Notif.isVisible ? 'block' : 'none'}}>
