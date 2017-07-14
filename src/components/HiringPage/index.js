@@ -21,7 +21,8 @@ class HiringPage extends Component {
         </ButtonToolbar>
         <Panel className='hiringTitle' header={title}></Panel>
         <Panel className='hiringText'>
-          Datadatadata
+          You are passionate about optimizing team members and believe that people managers can transform an organization and it’s people. 
+          You are a trusted coach and an expert in people development.  You are passionate about helping others develop and be the very best they can be. The opportunity to build and implement a leadership development and coaching program for at an innovative, fast-paced, global company is something that excites you!  This role reports directly to Kik’s Chief People Officer with frequent, ongoing interaction with the full executive team.
         </Panel>
       </div>
     );
