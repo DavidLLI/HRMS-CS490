@@ -33,7 +33,8 @@ class ProfileWrap extends Component {
        <Row>
           <Col xs={4} md={4}>
              <PageHeader>
-               Sam Smith
+             
+               {UserStore.firstName +" " + UserStore.lastName}
                </PageHeader>
 
 
@@ -103,10 +104,16 @@ class ProfileWrap extends Component {
                ------------------------------
             </Row>
             <Row>
-               Skills: PHP,Java,HTML,CSS,C++,JavaScript
+               Computer Skills: PHP,Java,HTML,CSS,C++,JavaScript
             </Row>
             <Row>
-              Interests: Tennis, football, piano
+              Langauge Skills: English, French, Spainsh
+            </Row>
+            <Row>
+              {'Major: ' + UserStore.major}
+            </Row>
+            <Row>
+              Degree: Master
             </Row>
             <Row>
               ———————————————————————————————

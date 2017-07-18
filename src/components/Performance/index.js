@@ -201,6 +201,14 @@ static displayName = 'Performance';
         fillColor: "rgba(255,153,0,0.6)"
       }]
     },
+     salesProgress:{
+      labels: ["EmployeeName"],
+      datasets: [{
+        label: "Performance Score",
+         data: [],
+         fillColor: "rgba(0,10,220,0.5)"
+       }]
+    },
     donutData2: [
       {
         value: 40,
@@ -358,6 +366,23 @@ static displayName = 'Performance';
     payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]]
     payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]]
 
+
+    //for sales data for all employees(no managers)
+    const salesData = this.state.salesProgress;
+    let empName = [];
+    let empScore = [];
+    
+
+    _.forEach(ManagerStore.allemployees, (em, emuser) => {
+        if(em.type == "employee"){
+           empName.push(em.firstName +' ' + em.lastName);
+           empScore.push(em.performanceScore);
+        } else {}
+    });
+
+    salesData.labels = empName;
+    salesData.datasets[0].data = empScore;
+
     return (
       <div className="container">
       <ButtonToolbar>
@@ -421,6 +446,10 @@ static displayName = 'Performance';
             <h3>Payroll by Department DYNAM </h3>
               <Chart.Bar data={this.state.payrollbydepartment} options={options} width="500" height="250"/>
           </Col>
+        </Row>
+
+        <Row>
+           <Chart.Bar data={this.state.salesProgress} options={options} width="500" height="250"/>
         </Row>
       </div>
     );
