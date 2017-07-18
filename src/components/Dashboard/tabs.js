@@ -14,8 +14,8 @@ import PayrollPage from '@components/Payroll';
 const TABS_Manager = [
   {
     name: "Performance Dashboard",
-    path: "Performance",
-    component: Performance
+    path: "performance",
+    component: Performance,
   },
   {
     name: 'Profile',
