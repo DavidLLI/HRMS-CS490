@@ -13,7 +13,7 @@ import Hiring from '@components/Hiring';
 import _ from 'lodash';
 import './legend.css';
 import payrollPage from '@components/Payroll';
-
+import PerformanceE2 from '@components/PerformanceE2';
 
 class PerformanceWrap extends Component {
   render() {
@@ -25,6 +25,8 @@ class PerformanceWrap extends Component {
       <Route path={`${url}/edit2`} component={PayrollAnalytics} />
       <Route path={`${url}/hiring`} component={Hiring} />
       <Route path={`${url}/payroll`} component={payrollPage} />
+      <Route path={`${url}/performanceE2`} component={PerformanceE2} />
+
       </div>
     );
   }
@@ -80,31 +82,7 @@ static displayName = 'Performance';
         fillColor: "rgba(255,153,0,0.6)"
       }]
     },
-    radarData: {
-      labels: ["Initiation", "Planning", "Execution", "Test", "Monitor" ],
-      datasets: [
-        {
-          label: "New Motor X1",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [95, 90, 20, 5, 20]
-        },
-        {
-          label: "Current Productions",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [100, 95, 80, 80, 100]
-        }
-      ]
-    },
+
     polarData:[
       {
         value: 300,
@@ -220,7 +198,6 @@ static displayName = 'Performance';
   }
 
   render(){
-
     let trArray = [];
     var legend = this.state && this.state.legend || '';
 
@@ -268,8 +245,8 @@ static displayName = 'Performance';
           <Link to='/dashboard/performance/edit2'>
             <Button bsStyle="primary">Payroll Analytics</Button>
           </Link>
-          <Link to='/dashboard/performance/edit'>
-            <Button bsStyle="primary">Edit2</Button>
+          <Link to='/dashboard/performance/performanceE2'>
+            <Button bsStyle="primary">Performance Tracking</Button>
           </Link>
       </ButtonGroup>
     </ButtonToolbar>
@@ -298,17 +275,6 @@ static displayName = 'Performance';
         <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
       </Col>
       </Row>
-        <Row>
-
-          <Col sm={6} className="Graph">
-            <h3>Project Progress</h3>
-            <Chart.Radar data={this.state.radarData} width="500" height="250"/>
-          </Col>
-        </Row>
-
-        <Row>
-           <Chart.Bar data={this.state.salesProgress} options={options} width="500" height="250"/>
-        </Row>
       </div>
     );
   }

@@ -105,8 +105,8 @@ class Resources extends Component {
           <Link to='/dashboard/performance/edit2'>
             <Button bsStyle="primary">Payroll Analytics</Button>
           </Link>
-          <Link to='/dashboard/performance/edit'>
-            <Button bsStyle="primary">Edit2</Button>
+          <Link to='/dashboard/performance/performanceE2'>
+            <Button bsStyle="primary">Performance Tracking</Button>
           </Link>
       </ButtonGroup>
     </ButtonToolbar>
@@ -114,7 +114,7 @@ class Resources extends Component {
      <Col sm={2} className="Graph">
      <ButtonGroup>
          <Link to='/dashboard/performance'>
-           <Button bsStyle="primary">Back</Button>
+           <Button bsStyle="primary">Home Dashboard</Button>
          </Link>
     </ButtonGroup>
      </Col>
