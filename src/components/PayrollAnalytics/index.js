@@ -22,6 +22,31 @@ class PayrollAnalytics extends Component {
   }
 
   state = {
+    radarData: {
+      labels: ["Initiation", "Planning", "Execution", "Test", "Monitor" ],
+      datasets: [
+        {
+          label: "New Motor X1",
+          fillColor: "rgba(220,220,220,0.2)",
+          strokeColor: "rgba(220,220,220,1)",
+          pointColor: "rgba(220,220,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [95, 90, 20, 5, 20]
+        },
+        {
+          label: "Current Productions",
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          data: [100, 95, 80, 80, 100]
+        }
+      ]
+    },
     payrollprogress: [
       {
         value: 80,
@@ -160,8 +185,8 @@ class PayrollAnalytics extends Component {
           <Link to='/dashboard/performance/edit2'>
             <Button bsStyle="primary">Payroll Analytics</Button>
           </Link>
-          <Link to='/dashboard/performance/edit'>
-            <Button bsStyle="primary">Edit2</Button>
+          <Link to='/dashboard/performance/performanceE2'>
+            <Button bsStyle="primary">Performance Tracking</Button>
           </Link>
       </ButtonGroup>
     </ButtonToolbar>
@@ -169,14 +194,14 @@ class PayrollAnalytics extends Component {
      <Col sm={2} className="Graph">
      <ButtonGroup>
          <Link to='/dashboard/performance'>
-           <Button bsStyle="primary">Back</Button>
+           <Button bsStyle="primary">Home Dashboard</Button>
          </Link>
     </ButtonGroup>
      </Col>
     </Row>
 
       <Row>
-        <Col sm={5} className="Graph">
+        <Col sm={6} className="Graph">
           <h3>Payroll Progress DYNAM </h3>
             <Chart.Doughnut data={this.state.payrollprogress} options={options} width="500" height="250"/>
         </Col>
@@ -221,6 +246,10 @@ class PayrollAnalytics extends Component {
         <Col sm={6} className="Graph">
           <h3>Payroll by Department DYNAM </h3>
             <Chart.Bar data={this.state.payrollbydepartment} options={options} width="500" height="250"/>
+        </Col>
+        <Col sm={6} className="Graph">
+          <h3>Project Progress</h3>
+          <Chart.Radar data={this.state.radarData} width="600" height="300"/>
         </Col>
       </Row>
     </div>
