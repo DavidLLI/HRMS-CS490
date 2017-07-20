@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Row, Col} from 'react-bootstrap';
+import { Row, Col, ButtonToolbar, Button, ButtonGroup} from 'react-bootstrap';
 import {observer} from 'mobx-react';
 import Chart  from 'react-chartjs';
 import ManagerStore from '@stores/Manager.store';
 import PayrollStore from '@stores/Payroll.store';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+import Resources from '@components/Resources';
+import PayrollAnalytics from '@components/PayrollAnalytics';
+import Hiring from '@components/Hiring';
 import _ from 'lodash';
 import './legend.css';
-
+import payrollPage from '@components/Payroll';
+import PerformanceE2 from '@components/PerformanceE2';
 
 class PerformanceWrap extends Component {
   render() {
@@ -16,7 +21,12 @@ class PerformanceWrap extends Component {
     return (
       <div>
       <Route exact path={url} component={Performance} />
-      <Route path={`${url}/performance`} component={Performance} />
+      <Route path={`${url}/edit`} component={Resources} />
+      <Route path={`${url}/edit2`} component={PayrollAnalytics} />
+      <Route path={`${url}/hiring`} component={Hiring} />
+      <Route path={`${url}/payroll`} component={payrollPage} />
+      <Route path={`${url}/performanceE2`} component={PerformanceE2} />
+
       </div>
     );
   }
@@ -45,6 +55,7 @@ var ChartLegend = React.createClass({
 
 
 @observer class Performance extends Component {
+static displayName = 'Performance';
 
   constructor(props){
     super(props);
@@ -54,43 +65,7 @@ var ChartLegend = React.createClass({
 
 
   state = {
-    linechartData: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'New Hiring',
-        data: [12, 2, 2, 1, 5, 4, 8],
-        fillColor: "rgba(153,255,51,0.2)"
-      },{
-        label: 'Terminate',
-        data: [-2, -2, 0, -3, -2, 0, 2],
-        fillColor: "rgba(0,10,220,0.2)"
-      },{
-        label: 'Production Needs',
-        data: [10, 28, 23, 22, 27, 30, 30],
-        fillColor: "rgba(255,153,0,0.2)"
-      }]
-    },
-    linesourceData: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'Talent Network',
-        data: [30, 28, 36, 38, 39, 45, 35],
-        fillColor: "rgba(153,255,51,0.6)"
-      },{
-        label: 'Referral',
-        data: [5, 9, 6, 8, 9, 5, 5],
-        fillColor: "rgba(0,10,220,0.5)"
-      },{
-        label: 'Internal Career Site',
-        data: [12, 19, 14, 15, 17, 9, 15],
-        fillColor: "rgba(255,153,0,0.6)"
-      },
-      {
-        label: 'External Job Board',
-        data: [40, 47, 46, 43, 49, 54, 52],
-        fillColor: "rgba(255,153,0,0.6)"
-      }]
-    },
+
     barchartData: {
       labels: ['Production', 'HR', 'SM', 'Accounting', 'CRM', 'SCM'],
       datasets: [{
@@ -107,45 +82,7 @@ var ChartLegend = React.createClass({
         fillColor: "rgba(255,153,0,0.6)"
       }]
     },
-    dynambarData:{
-      labels: ["Amount"],
-      datasets: [{
-        label: "Employees",
-         data: [3],
-         fillColor: "rgba(0,10,220,0.5)"
-       },
-       {
-         label: "Manager",
-         data: [8],
-         fillColor: "rgba(255,153,0,0.6)"
-       }
-      ]
-    },
-    radarData: {
-      labels: ["Initiation", "Planning", "Execution", "Test", "Monitor" ],
-      datasets: [
-        {
-          label: "New Motor X1",
-          fillColor: "rgba(220,220,220,0.2)",
-          strokeColor: "rgba(220,220,220,1)",
-          pointColor: "rgba(220,220,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [95, 90, 20, 5, 20]
-        },
-        {
-          label: "Current Productions",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [100, 95, 80, 80, 100]
-        }
-      ]
-    },
+
     polarData:[
       {
         value: 300,
@@ -198,42 +135,6 @@ var ChartLegend = React.createClass({
         label: "Needs Improvement"
       }
     ],
-    payrollprogress: [
-      {
-        value: 80,
-        color:"#FDB45C",
-        highlight: "#FF5A5E",
-        label: "Requested"
-      },
-      {
-        value: 30,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Approved"
-      },
-      {
-        value: 15,
-        color: "#F7464A",
-        highlight: "#FFC870",
-        label: "Cancelled"
-      }
-    ],
-    payrollbydepartment: {
-      labels: ['Production', 'HR', 'SM', 'Accounting'],
-      datasets: [{
-        label: 'Requested',
-        data: [3, 0, 0, 1 ],
-        fillColor: "rgba(153,255,51,0.6)"
-      },{
-        label: 'Approved',
-        data: [1, 0, 0, 0 ],
-        fillColor: "rgba(0,10,220,0.5)"
-      },{
-        label: 'Cancelled',
-        data: [4, 0, 0 , 1],
-        fillColor: "rgba(255,153,0,0.6)"
-      }]
-    },
      salesProgress:{
       labels: ["Name"],
       datasets: [{
@@ -297,7 +198,6 @@ var ChartLegend = React.createClass({
   }
 
   render(){
-
     let trArray = [];
     var legend = this.state && this.state.legend || '';
 
@@ -315,96 +215,11 @@ var ChartLegend = React.createClass({
         trArray.push(obj);
     });
 
-    //for manager: employee bar graph*********
-    const newdata = this.state.dynambarData;
-    let num_manager = 0;
-    let num_employee = 0;
-
-
-    _.forEach(ManagerStore.allemployees, (em, emuser) => {
-        if(em.type == "employee"){
-          num_employee = num_employee + 1;
-        } else {
-          num_manager = num_manager + 1;
-        }
-    });
-
-    newdata.datasets[0].data = [num_employee];
-    newdata.datasets[1].data = [num_manager];
-
-    //for payroll request data *************
-    const payrollD = this.state.payrollprogress;
-    let HRdep = [0,0,0];
-    let Productdep = [0,0,0];
-    let Salesdep = [0,0,0];
-    let Suppiesdep = [0,0,0];
-    let CustomerRelationsdep = [0,0,0];
-    let Accountdep = [0,0,0];
-    let request = 0;
-    let approved = 0;
-    let cancelled = 0;
-    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-      if(payroll.department == "Production"){
-        if(payroll.status == "Requested"){
-          Productdep[0]++;
-          request++;
-        } else if(payroll.status == "Approved"){
-          Productdep[1]++;
-        } else {
-          Productdep[2]++;
-        }
-      } else if (payroll.department == "HR"){
-        if(payroll.status == "Requested"){
-          HRdep[0] = HRdep[0] +1;
-          request = request + 1 ;
-        } else if(payroll.status == "Approved"){
-          HRdep[1] = HRdep[1] +1;
-          approved = approved +1;
-        } else {
-          HRdep[2] = HRdep[2] +1;
-          cancelled = cancelled +1;
-        }
-      } else if(payroll.department == "Marketing"){
-        if(payroll.status == "Requested"){
-          Salesdep[0] =  Salesdep[0] +1;
-          request = request + 1 ;
-        } else if(payroll.status == "Approved"){
-          Salesdep[1] =  Salesdep[1] +1;
-          approved = approved +1;
-        } else {
-          Salesdep[2] =  Salesdep[2] +1;
-          cancelled = cancelled +1;
-        }
-      } else { //finance
-        if(payroll.status == "Requested"){
-          Accountdep[0] = Accountdep[0] + 1;
-          request++;
-        } else if(payroll.status == "Approved"){
-          Accountdep[1] = Accountdep[1] + 1;
-            approved = approved +1;
-        } else {
-          Accountdep[2] = Accountdep[2] + 1;
-          cancelled = cancelled +1;
-        }
-      }
-    });
-
-    payrollD[0].value = request;
-    payrollD[1].value = approved;
-    payrollD[2].value = cancelled;
-
-    // other Graph: payrollbydepartment
-    const payrollDepartment = this.state.payrollbydepartment;
-    payrollDepartment.datasets[0].data= [Productdep[0], HRdep[0], Salesdep[0],Accountdep[0]]
-    payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]]
-    payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]]
-
-
     //for sales data for all employees(no managers)
     const salesData = this.state.salesProgress;
     let empName = [];
     let empScore = [];
-    
+
 
     _.forEach(ManagerStore.allemployees, (em, emuser) => {
         if(em.type == "employee"){
@@ -417,7 +232,27 @@ var ChartLegend = React.createClass({
     salesData.datasets[0].data = empScore;
 
     return (
+
       <div className="container">
+
+      <Row>
+      <Col sm={8} className="Graph">
+       <ButtonToolbar>
+      <ButtonGroup>
+          <Link to='/dashboard/performance/edit'>
+            <Button bsStyle="primary">Resouce Planning</Button>
+          </Link>
+          <Link to='/dashboard/performance/edit2'>
+            <Button bsStyle="primary">Payroll Analytics</Button>
+          </Link>
+          <Link to='/dashboard/performance/performanceE2'>
+            <Button bsStyle="primary">Performance Tracking</Button>
+          </Link>
+      </ButtonGroup>
+    </ButtonToolbar>
+    </Col>
+    </Row>
+
       <h2>Welcome to HR Performance Dashboard!</h2>
       <Row>
       <Col sm={4} className="Graph">
@@ -440,6 +275,7 @@ var ChartLegend = React.createClass({
         <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
       </Col>
       </Row>
+<<<<<<< HEAD
         <Row>
           <Col sm={6} className="Graph">
             <h3>Resource Planning </h3>
@@ -476,6 +312,8 @@ var ChartLegend = React.createClass({
           <h3>Sales Performance DYNAM</h3>
            <Chart.Bar data={this.state.salesProgress} options={options} width="500" height="250"/>
         </Row>
+=======
+>>>>>>> 4f7f0f3cb6612e390ab2ead9912b6064e6ee9113
       </div>
     );
   }
