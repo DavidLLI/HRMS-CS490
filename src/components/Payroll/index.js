@@ -58,7 +58,7 @@ import './payroll.css';
 				        	<th>From</th>
 				        	<th>To</th>
 				        	<th>Total Amount</th>
-				        	<th>Current Status</th> 
+				        	<th>Current Status</th>
 				      	</tr>
 				    </thead>
 				    <tbody>
@@ -83,7 +83,7 @@ import './payroll.css';
 		            show={this.state.modalShow}
 		            onHide={this.hideModal}
 		        >
-		            <PayrollReqPage 
+		            <PayrollReqPage
 		              close={this.hideModal}
 		            />
 		        </Modal>
