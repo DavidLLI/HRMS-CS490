@@ -8,5 +8,5 @@ module.exports = {
   '@assets': paths.appSrc + '/assets',
   '@images': paths.appSrc + '/assets/images',
   '@src': paths.appSrc,
-  '@config': paths.appSrc + 'config.js'
+  '@config': paths.appSrc + '/config.js'
 }
