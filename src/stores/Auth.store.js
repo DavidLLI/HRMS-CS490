@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 import axios from 'axios';
 import UserStore from '@stores/User.store';
 import Cookies from 'universal-cookie';
+import Config from '@config';
 
 class Auth {
   @observable isLoggedIn = false;
@@ -28,7 +29,7 @@ class Auth {
   }
 
   @action signUp(username, password, type) {
-  	axios.post('http://localhost:4000/api/employee/signup', {
+  	axios.post(`${Config.SERVER_URL}/api/employee/signup`, {
   			username: username,
   			password: password,
         type: type
@@ -43,7 +44,7 @@ class Auth {
   }
 
   @action logIn(username, password) {
-  	axios.get('http://localhost:4000/api/employee/username/' + username + '/password/' + password)
+  	axios.get(`${Config.SERVER_URL}/api/employee/username/` + username + '/password/' + password)
   		.then((data) => {
   			if (data.status === 200) {
   				this.username = username;

@@ -3,6 +3,7 @@ import { observable, action } from 'mobx';
 import axios from 'axios';
 import moment from 'moment';
 import Cookies from 'universal-cookie';
+import Config from '@config';
 
 class Calendar {
   @observable username; // id of null means not saved/synced to DB
@@ -27,7 +28,7 @@ class Calendar {
 
   @action submitTimeSheet(date, hour) {
     const obj = { date: date, hours: hour };
-    axios.post('http://localhost:4000/api/employee/timeSheet/username/' + AuthStore.username, obj)
+    axios.post(`${Config.SERVER_URL}/api/employee/timeSheet/username/` + AuthStore.username, obj)
     .then(() => {
       this.getYearAvailability(this.year, this.month);
     })
@@ -38,7 +39,7 @@ class Calendar {
 
   @action requestSpecialAvail(date, start, end) {
   	const obj = {date: date, time: {startTime: start, endTime: end}};
-  	axios.post('http://localhost:4000/api/employee/specialAvail/username/' + AuthStore.username, obj)
+  	axios.post(`${Config.SERVER_URL}/api/employee/specialAvail/username/` + AuthStore.username, obj)
   	.then(() => {
   		this.getYearAvailability(this.year, this.month);
   	})
@@ -48,7 +49,7 @@ class Calendar {
   }
 
   @action cancelSpecialAvail(date) {
-  	axios.delete('http://localhost:4000/api/employee/specialAvail/username/' + AuthStore.username + '/date/' + date)
+  	axios.delete(`${Config.SERVER_URL}/api/employee/specialAvail/username/` + AuthStore.username + '/date/' + date)
   	.then(() => {
   		this.getYearAvailability(this.year, this.month);
   	})
@@ -59,7 +60,7 @@ class Calendar {
 
   @action requestTimeoff(date, start, end) {
   	const obj = {date: date, time: {startTime: start, endTime: end}};
-  	axios.post('http://localhost:4000/api/employee/timeoff/username/' + AuthStore.username, obj)
+  	axios.post(`${Config.SERVER_URL}/api/employee/timeoff/username/` + AuthStore.username, obj)
   	.then(() => {
   		this.getYearAvailability(this.year, this.month);
   	})
@@ -69,7 +70,7 @@ class Calendar {
   }
 
   @action cancelTimeoff(date) {
-  	axios.delete('http://localhost:4000/api/employee/timeoff/username/' + AuthStore.username + '/date/' + date)
+  	axios.delete(`${Config.SERVER_URL}/api/employee/timeoff/username/` + AuthStore.username + '/date/' + date)
   	.then(() => {
   		this.getYearAvailability(this.year, this.month);
   	})
@@ -79,7 +80,7 @@ class Calendar {
   }
 
   @action getRegularAvail() {
-    axios.get('http://localhost:4000/api/employee/availability/username/' + AuthStore.username)
+    axios.get(`${Config.SERVER_URL}/api/employee/availability/username/` + AuthStore.username)
     .then((data) => {
       this.regularAvail = data.data;
     })
@@ -89,7 +90,7 @@ class Calendar {
   }
 
   @action postRegularAvail(avail) {
-    axios.post('http://localhost:4000/api/employee/availability/username/' + AuthStore.username, avail)
+    axios.post(`${Config.SERVER_URL}/api/employee/availability/username/` + AuthStore.username, avail)
     .then(() => {
       this.regularAvail = avail;
       this.getYearAvailability(this.year, this.month);
@@ -110,7 +111,7 @@ class Calendar {
       let year = date.year();
       let month = date.month();
       let day = date.date();
-      axios.get('http://localhost:4000/api/employee/availability/username/' + AuthStore.username + '/date/' + date.format('YYYY-MM-DD'))
+      axios.get(`${Config.SERVER_URL}/api/employee/availability/username/` + AuthStore.username + '/date/' + date.format('YYYY-MM-DD'))
       .then((data) => {
         //console.log(year, month, day);
         if (data.data.endTime !== '00:00') {
@@ -138,7 +139,7 @@ class Calendar {
       .catch((error) => {
         console.log(error);
       });
-      axios.get('http://localhost:4000/api/employee/timeSheet/username/' + AuthStore.username + '/date/' + date.format('YYYY-MM-DD'))
+      axios.get(`${Config.SERVER_URL}/api/employee/timeSheet/username/` + AuthStore.username + '/date/' + date.format('YYYY-MM-DD'))
       .then((data) => {
         if (data.data !== '') {
           let timeSheetObj = {};
