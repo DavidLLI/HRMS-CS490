@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import AuthStore from '@stores/Auth.store';
 import _ from 'lodash';
+import Config from '@config';
 
 class Payroll {
   @observable allPayrolls;
@@ -23,7 +24,7 @@ class Payroll {
       status: 'Requested'
     };
     console.log(obj);
-    axios.post('http://localhost:4000/api/payroll', obj)
+    axios.post(`${Config.SERVER_URL}/api/payroll`, obj)
     .then((data) => {
       this.getAllPayrolls();
     })
@@ -33,7 +34,7 @@ class Payroll {
   }
 
   @action getAllPayrolls() {
-    axios.get('http://localhost:4000/api/payroll')
+    axios.get(`${Config.SERVER_URL}/api/payroll`)
     .then((data) => {
       let newPayrolls = {};
       _.forEach(data.data, (payrollData) =>{

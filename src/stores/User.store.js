@@ -4,6 +4,7 @@ import moment from 'moment';
 import Cookies from 'universal-cookie';
 import AuthStore from '@stores/Auth.store';
 import ManagerStore from '@stores/Manager.store';
+import Config from '@config';
 
 class User {
   @observable firstName;
@@ -27,7 +28,7 @@ class User {
   @action updateProfile(obj) {
     let postObj = obj;
     postObj.username = AuthStore.username;
-    axios.post('http://localhost:4000/api/employee', obj)
+    axios.post(`${Config.SERVER_URL}/api/employee`, obj)
     .then((data) => {
       this.fetchFromDB(AuthStore.username);
     })
@@ -37,7 +38,7 @@ class User {
   }
 
   fetchFromDB = async (username) => {
-    axios.get('http://localhost:4000/api/employee/username/' + username)
+    axios.get(`${Config.SERVER_URL}/api/employee/username/` + username)
     .then((data) => {
       this.firstName = data.data[0].firstName;
       this.lastName = data.data[0].lastName;
