@@ -50,37 +50,38 @@ class PayrollAnalytics extends Component {
     payrollprogress: [
       {
         value: 80,
-        color:"#FDB45C",
-        highlight: "#FF5A5E",
+        color:"#ead21e",
+        highlight: "#ead22e",
         label: "Requested"
       },
       {
         value: 30,
-        color: "#46BFBD",
+        color: "#7cba71",
         highlight: "#5AD3D1",
         label: "Approved"
       },
       {
         value: 15,
-        color: "#F7464A",
+        color: "#820303",
         highlight: "#FFC870",
         label: "Cancelled"
       }
     ],
+
     payrollbydepartment: {
       labels: ['Production', 'HR', 'SM', 'Accounting'],
       datasets: [{
         label: 'Requested',
         data: [3, 0, 0, 1 ],
-        fillColor: "rgba(153,255,51,0.6)"
+        fillColor: "rgba(234, 210, 30,0.7)"
       },{
         label: 'Approved',
         data: [1, 0, 0, 0 ],
-        fillColor: "rgba(0,10,220,0.5)"
+        fillColor: "rgba(124, 186, 113,0.7)"
       },{
         label: 'Cancelled',
         data: [4, 0, 0 , 1],
-        fillColor: "rgba(255,153,0,0.6)"
+        fillColor: "rgba(130, 3, 3, 0.7)"
       }]
     }
   }
@@ -285,6 +286,11 @@ class PayrollAnalytics extends Component {
         <Col sm={6} className="Graph">
           <h3>Payroll Progress DYNAM </h3>
             <Chart.Doughnut data={this.state.payrollprogress} options={options} width="500" height="250"/>
+            <ul text-align="center">
+                <li><span class="mylegend"></span><font color="#ead21e"> Requested</font></li>
+                <li><span class="mylegend"></span><font color="#7cba71"> Approved</font></li>
+                <li><span class="mylegend"></span><font color="#820303"> Cancelled</font></li>
+            </ul>
         </Col>
         <Col sm={6} className="Table">
            <h3>Payroll Urgent Requests Needed for Approval</h3>
@@ -295,28 +301,32 @@ class PayrollAnalytics extends Component {
                  <th>Priority</th>
                  <th>Department</th>
                  <th>Amount</th>
+                 <th>Due Dates</th>
                </tr>
              </thead>
              <tbody>
              <LinkContainer to='/dashboard/performance/payroll'>
                <tr>
-                 <td>Priority1</td>
+                 <td>1</td>
                  <td>HR</td>
-                 <td>Project Manager</td>
+                 <td>$400</td>
+                 <td>Tomorrow</td>
                </tr>
                </LinkContainer>
                <LinkContainer to='/dashboard/performance/payroll'>
                <tr>
-                 <td>Priority2</td>
+                 <td>1</td>
                  <td>Sales</td>
-                 <td>Data Analyst</td>
+                 <td>$1200</td>
+                 <td>Tomorrow</td>
                </tr>
                </LinkContainer>
                <LinkContainer to='/dashboard/performance/payroll'>
                <tr>
-                 <td>Priority3</td>
+                 <td>2</td>
                  <td>Production</td>
-                 <td>300</td>
+                 <td>$300</td>
+                 <td>Friday</td>
                </tr>
                </LinkContainer>
              </tbody>
@@ -327,10 +337,21 @@ class PayrollAnalytics extends Component {
         <Col sm={6} className="Graph">
           <h3>Payroll by Department DYNAM </h3>
             <Chart.Bar data={this.state.payrollbydepartment} options={options} width="500" height="250"/>
+            <ul text-align="center">
+                <li><span class="mylegend"></span><font color="#ead21e"> Requested</font></li>
+                <li><span class="mylegend"></span><font color="#7cba71"> Approved</font></li>
+                <li><span class="mylegend"></span><font color="#820303"> Cancelled</font></li>
+            </ul>
         </Col>
         <Col sm={6} className="Graph">
           <h3>Project Progress</h3>
           <Chart.Radar data={this.state.radarData} width="600" height="300"/>
+          <ul text-align="center">
+              <li><span class="mylegend"></span><font color="#7477db"> Talent Network</font></li>
+              <li><span class="mylegend"></span><font color="#74dbc4"> Referral</font></li>
+              <li><span class="mylegend"></span><font color="#dd7ec9"> Internal Board</font></li>
+              <li><span class="mylegend"></span><font color="#7cba71"> External Board</font></li>
+          </ul>
         </Col>
       </Row>
     </div>
