@@ -85,93 +85,174 @@ class PayrollAnalytics extends Component {
     }
   }
 
+  componentDidMount() {
+    setInterval(this.recall, 15000);
+  }
+
+  myfunc = (e) => {
+    alert('hello');
+  }
+
+  recall = (e) => {
+
+
+    //for payroll request data *************
+    let payrollD = this.state.payrollprogress;
+    let HRdep = [0,0,0];
+    let Productdep = [0,0,0];
+    let Salesdep = [0,0,0];
+    let Suppiesdep = [0,0,0];
+    let CustomerRelationsdep = [0,0,0];
+    let Accountdep = [0,0,0];
+    let request = 0;
+    let approved = 0;
+    let cancelled = 0;
+    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
+      if(payroll.department == "Production"){
+        if(payroll.status == "Requested"){
+          Productdep[0]++;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Productdep[1]++;
+        } else {
+          Productdep[2]++;
+        }
+      } else if (payroll.department == "HR"){
+        if(payroll.status == "Requested"){
+          HRdep[0] = HRdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          HRdep[1] = HRdep[1] +1;
+          approved = approved +1;
+        } else {
+          HRdep[2] = HRdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else if(payroll.department == "Marketing"){
+        if(payroll.status == "Requested"){
+          Salesdep[0] =  Salesdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          Salesdep[1] =  Salesdep[1] +1;
+          approved = approved +1;
+        } else {
+          Salesdep[2] =  Salesdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else { //finance
+        if(payroll.status == "Requested"){
+          Accountdep[0] = Accountdep[0] + 1;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Accountdep[1] = Accountdep[1] + 1;
+            approved = approved +1;
+        } else {
+          Accountdep[2] = Accountdep[2] + 1;
+          cancelled = cancelled +1;
+        }
+      }
+    });
+
+    payrollD[0].value = request;
+    payrollD[1].value = approved;
+    payrollD[2].value = cancelled;
+
+    // other Graph: payrollbydepartment
+    let payrollDepartment = this.state.payrollbydepartment;
+    payrollDepartment.datasets[0].data= [Productdep[0], HRdep[0], Salesdep[0],Accountdep[0]];
+    payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]];
+    payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]];
+    this.setState({
+      payrollbydepartment: payrollDepartment,
+      payrollprogress: payrollD
+    });
+
+  }
+
   render() {
+    let trArray = [];
+    var legend = this.state && this.state.legend || '';
 
-        let trArray = [];
-        var legend = this.state && this.state.legend || '';
+    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
+      const obj = {
+          request_id: payroll.request_id,
+          department: payroll.department,
+          manager: payroll.manager,
+          timeRequested: moment(payroll.timeRequested).format('YYYY-MM-DD'),
+          startDate: moment(payroll.startDate).format('YYYY-MM-DD'),
+          endDate: moment(payroll.endDate).format('YYYY-MM-DD'),
+          totalAmount: payroll.totalAmount,
+          status: payroll.status
+        };
+        trArray.push(obj);
+    });
 
-        _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-          const obj = {
-              request_id: payroll.request_id,
-              department: payroll.department,
-              manager: payroll.manager,
-              timeRequested: moment(payroll.timeRequested).format('YYYY-MM-DD'),
-              startDate: moment(payroll.startDate).format('YYYY-MM-DD'),
-              endDate: moment(payroll.endDate).format('YYYY-MM-DD'),
-              totalAmount: payroll.totalAmount,
-              status: payroll.status
-            };
-            trArray.push(obj);
-        });
+    //for payroll request data *************
+    const payrollD = this.state.payrollprogress;
+    let HRdep = [0,0,0];
+    let Productdep = [0,0,0];
+    let Salesdep = [0,0,0];
+    let Suppiesdep = [0,0,0];
+    let CustomerRelationsdep = [0,0,0];
+    let Accountdep = [0,0,0];
+    let request = 0;
+    let approved = 0;
+    let cancelled = 0;
+    _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
+      if(payroll.department == "Production"){
+        if(payroll.status == "Requested"){
+          Productdep[0]++;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Productdep[1]++;
+        } else {
+          Productdep[2]++;
+        }
+      } else if (payroll.department == "HR"){
+        if(payroll.status == "Requested"){
+          HRdep[0] = HRdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          HRdep[1] = HRdep[1] +1;
+          approved = approved +1;
+        } else {
+          HRdep[2] = HRdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else if(payroll.department == "Marketing"){
+        if(payroll.status == "Requested"){
+          Salesdep[0] =  Salesdep[0] +1;
+          request = request + 1 ;
+        } else if(payroll.status == "Approved"){
+          Salesdep[1] =  Salesdep[1] +1;
+          approved = approved +1;
+        } else {
+          Salesdep[2] =  Salesdep[2] +1;
+          cancelled = cancelled +1;
+        }
+      } else { //finance
+        if(payroll.status == "Requested"){
+          Accountdep[0] = Accountdep[0] + 1;
+          request++;
+        } else if(payroll.status == "Approved"){
+          Accountdep[1] = Accountdep[1] + 1;
+            approved = approved +1;
+        } else {
+          Accountdep[2] = Accountdep[2] + 1;
+          cancelled = cancelled +1;
+        }
+      }
+    });
 
-        //for payroll request data *************
-        const payrollD = this.state.payrollprogress;
-        let HRdep = [0,0,0];
-        let Productdep = [0,0,0];
-        let Salesdep = [0,0,0];
-        let Suppiesdep = [0,0,0];
-        let CustomerRelationsdep = [0,0,0];
-        let Accountdep = [0,0,0];
-        let request = 0;
-        let approved = 0;
-        let cancelled = 0;
-        _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-          if(payroll.department == "Production"){
-            if(payroll.status == "Requested"){
-              Productdep[0]++;
-              request++;
-            } else if(payroll.status == "Approved"){
-              Productdep[1]++;
-            } else {
-              Productdep[2]++;
-            }
-          } else if (payroll.department == "HR"){
-            if(payroll.status == "Requested"){
-              HRdep[0] = HRdep[0] +1;
-              request = request + 1 ;
-            } else if(payroll.status == "Approved"){
-              HRdep[1] = HRdep[1] +1;
-              approved = approved +1;
-            } else {
-              HRdep[2] = HRdep[2] +1;
-              cancelled = cancelled +1;
-            }
-          } else if(payroll.department == "Marketing"){
-            if(payroll.status == "Requested"){
-              Salesdep[0] =  Salesdep[0] +1;
-              request = request + 1 ;
-            } else if(payroll.status == "Approved"){
-              Salesdep[1] =  Salesdep[1] +1;
-              approved = approved +1;
-            } else {
-              Salesdep[2] =  Salesdep[2] +1;
-              cancelled = cancelled +1;
-            }
-          } else { //finance
-            if(payroll.status == "Requested"){
-              Accountdep[0] = Accountdep[0] + 1;
-              request++;
-            } else if(payroll.status == "Approved"){
-              Accountdep[1] = Accountdep[1] + 1;
-                approved = approved +1;
-            } else {
-              Accountdep[2] = Accountdep[2] + 1;
-              cancelled = cancelled +1;
-            }
-          }
-        });
+    payrollD[0].value = request;
+    payrollD[1].value = approved;
+    payrollD[2].value = cancelled;
 
-        payrollD[0].value = request;
-        payrollD[1].value = approved;
-        payrollD[2].value = cancelled;
-
-        // other Graph: payrollbydepartment
-        const payrollDepartment = this.state.payrollbydepartment;
-        payrollDepartment.datasets[0].data= [Productdep[0], HRdep[0], Salesdep[0],Accountdep[0]]
-        payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]]
-        payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]]
-
-
+    // other Graph: payrollbydepartment
+    const payrollDepartment = this.state.payrollbydepartment;
+    payrollDepartment.datasets[0].data= [Productdep[0], HRdep[0], Salesdep[0],Accountdep[0]];
+    payrollDepartment.datasets[1].data= [Productdep[1], HRdep[1], Salesdep[1],Accountdep[1]];
+    payrollDepartment.datasets[2].data= [Productdep[2], HRdep[2], Salesdep[2],Accountdep[2]];
 
     return (
       <div className="container">

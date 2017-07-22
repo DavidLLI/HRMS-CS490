@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PageHeader, Panel } from 'react-bootstrap';
+import { Image, Button, Glyphicon, ButtonGroup, Grid, Col, Row } from 'react-bootstrap';
 
 class Announcements extends Component {
   articles = [
@@ -29,7 +30,15 @@ class Announcements extends Component {
     return this.articles.map((a) => {
       return (
         <Panel header={(<h2>{a.title}</h2>)}>
-          { a.summary }
+           <Grid>
+            <Row className="show-grid">
+              <Col xs={12} md={8}>{ a.summary }</Col>
+              <Col xs={6} md={4}><ButtonGroup className="likebuttons">
+            <Button><Glyphicon glyph="thumbs-up" /> Like</Button>
+            <Button><Glyphicon glyph="thumbs-down" /> Dislike</Button>
+          </ButtonGroup></Col>
+            </Row>
+          </Grid>
         </Panel>
       );
     });
