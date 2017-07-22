@@ -38,20 +38,20 @@ var options = {
             donutData2: [
       {
         value: 40,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
+        color:"#43a857",
+        highlight: "#43a857",
         label: "Very Satisfied"
       },
       {
         value: 60,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
+        color: "#71a5dd",
+        highlight: "#71a5dd",
         label: "Satisfied"
       },
       {
         value: 25,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "#f2b04d",
+        highlight: "#f2b04d",
         label: "Needs Improvement"
       }
     ]
@@ -154,10 +154,9 @@ var options = {
         <h3>Performance Evaluations </h3>
         <Chart.Doughnut ref="test" data={this.state.donutData2} width="400" height="250"/>
         <ul>
-            <li><span class="mylegend"></span> Very Satisfied</li>
-            <li><span class="mylegend"></span> Satisfied</li>
-            <li><span class="mylegend"></span> Needs Improvement</li>
-
+            <li><span class="mylegend"></span><font color="#43a857">Very Satisfied</font></li>
+            <li><span class="mylegend"></span><font color="#71a5dd"> Satisfied </font></li>
+            <li><span class="mylegend"></span><font color="#f2b04d">To Improve</font></li>
         </ul>
         </Col>
         </Row>
