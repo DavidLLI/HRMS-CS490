@@ -66,72 +66,59 @@ static displayName = 'Performance';
 
   state = {
 
-    barchartData: {
-      labels: ['Production', 'HR', 'SM', 'Accounting', 'CRM', 'SCM'],
+    linechartData: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July','Aug'],
       datasets: [{
-        label: 'New Hiring',
-        data: [3, 0, 0, 1, 2, 2],
-        fillColor: "rgba(153,255,51,0.6)"
+        label: 'Very Satisfied Proj',
+      data: [59,58,59,69,66,75,80,85],
+        fillColor: "rgba(0,10,220,0)",
+        strokeColor: "#afeabb",
+        strokeDash: [5, 5],
       },{
-        label: 'Terminate',
-        data: [1, 0, 0, 0, 0, 1],
-        fillColor: "rgba(0,10,220,0.5)"
+        label: 'Satisfied Proj',
+        data: [40,43,41,33,32,28,20,14],
+        fillColor: "rgba(0,10,220,0)",
+        strokeColor: "#cde1f7",
       },{
-        label: 'Production Needs',
-        data: [4, 0, 0 , 1, 1, 2],
-        fillColor: "rgba(255,153,0,0.6)"
+        label: 'To Improve Proj',
+        data: [30,33,32,29,16,14,7,5],
+        fillColor: "rgba(255,153,0,0)",
+        strokeColor: "#f7ce91",
+      },{
+        label: 'Very Satisfied',
+        data: [59,58,59,69,66,75,80,],
+        fillColor: "rgba(0,10,220,0)",
+        strokeColor: "#43a857",
+      },{
+        label: 'Satisfied',
+        data: [40,43,41,33,32,28,20,],
+        fillColor: "rgba(0,10,220,0)",
+        strokeColor: "#71a5dd",
+      },{
+        label: 'To Improve',
+        data: [30,33,32,29,16,14,7,],
+        fillColor: "rgba(255,153,0,0)",
+        strokeColor: "#f2b04d",
       }]
     },
 
-    polarData:[
-      {
-        value: 300,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-      },
-      {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-      },
-      {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-      },
-      {
-        value: 40,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-      },
-      {
-        value: 120,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-      }
-    ],
     donutData1: [
       {
         value: 80,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
+        color:"#43a857",
+        highlight: "#43a857",
         label: "Very Satisfied"
       },
       {
         value: 30,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
+        color: "#71a5dd",
+        highlight: "#71a5dd",
         label: "Satisfied"
       },
       {
         value: 15,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "#f2b04d",
+        highlight: "#f2b04d",
         label: "Needs Improvement"
       }
     ],
@@ -146,40 +133,40 @@ static displayName = 'Performance';
     donutData2: [
       {
         value: 40,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
+        color:"#43a857",
+        highlight: "#43a858",
         label: "Very Satisfied"
       },
       {
         value: 60,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
+        color: "#71a5dd",
+        highlight: "#71a5dd",
         label: "Satisfied"
       },
       {
         value: 25,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "#f2b04d",
+        highlight: "#f2b04d",
         label: "Needs Improvement"
       }
     ],
     donutData3: [
       {
         value: 55,
-        color:"#F7464A",
+        color:"#43a857",
         highlight: "#FF5A5E",
         label: "Very Satisfied"
       },
       {
         value: 43,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
+        color: "#71a5dd",
+        highlight: "#71a5dd",
         label: "Satisfied"
       },
       {
         value: 35,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "#f2b04d",
+        highlight: "#f2b04d",
         label: "Needs Improvement"
       }
     ],
@@ -259,20 +246,40 @@ static displayName = 'Performance';
         <h3>Employee Engagement </h3>
         <Chart.Doughnut ref="test" data={this.state.donutData1} width="400" height="250"/>
         <ul>
-            <li><span class="mylegend"></span> Super Awesome</li>
-            <li><span class="mylegend"></span> Awesome</li>
-            <li><span class="mylegend"></span> Kinda Awesome</li>
-            <li><span class="mylegend"></span> Not Awesome</li>
+            <li><span class="mylegend"></span><font color="#43a857">Very Satisfied</font></li>
+            <li><span class="mylegend"></span><font color="#71a5dd"> Satisfied </font></li>
+            <li><span class="mylegend"></span><font color="#f2b04d">To Improve</font></li>
         </ul>
       </Col>
       <Col sm={4} className="Graph">
         <h3> Performance  Evaluations</h3>
         <Chart.Doughnut ref="chart" data={this.state.donutData2} options={this.state.donutoptions} width="400" height="250"/>
-        <div dangerouslySetInnerHTML={{ __html: legend }} />
+        <ul>
+            <li><span class="mylegend"></span><font color="#43a857">Very Satisfied</font></li>
+            <li><span class="mylegend"></span><font color="#71a5dd"> Satisfied </font></li>
+            <li><span class="mylegend"></span><font color="#f2b04d">To Improve</font></li>
+        </ul>
       </Col>
       <Col sm={4} className="Graph">
         <h3> Training Progress </h3>
         <Chart.Doughnut data={this.state.donutData3} options={this.state.donutoptions} width="400" height="250"/>
+        <ul>
+            <li><span class="mylegend"></span><font color="#43a857">Very Satisfied</font></li>
+            <li><span class="mylegend"></span><font color="#71a5dd"> Satisfied </font></li>
+            <li><span class="mylegend"></span><font color="#f2b04d">To Improve</font></li>
+        </ul>
+      </Col>
+      </Row>
+      <Row>
+      <Col>
+      <h3>Historic Employee Satisfaction</h3>
+      <Chart.Line data={this.state.linechartData} width="500" height="250"/>
+      <ul text-align="center">
+        <li><span class="mylegend"></span><font color="#43a857">Very Satisfied</font></li>
+        <li><span class="mylegend"></span><font color="#71a5dd"> Satisfied </font></li>
+        <li><span class="mylegend"></span><font color="#f2b04d">To Improve</font></li>
+        <li><span class="mylegend"></span>Future Projections</li>
+      </ul>
       </Col>
       </Row>
 <<<<<<< HEAD

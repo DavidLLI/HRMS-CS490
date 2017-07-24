@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
+import Config from '@config';
 
 class Manager {
   @observable allemployees;
@@ -11,7 +12,7 @@ class Manager {
   }
 
   @action getAllEmployees() {
-    axios.get('http://localhost:4000/api/employee')
+    axios.get(`${Config.SERVER_URL}/api/employee`)
     .then((data) => {
       _.forEach(data.data, (employeedata) =>{
         this.allemployees[employeedata.username] = employeedata;

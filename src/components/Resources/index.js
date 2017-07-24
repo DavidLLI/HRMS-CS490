@@ -17,37 +17,53 @@ class Resources extends Component {
   }
 
   state = {
-    dynambarData:{
-    labels: ["Amount"],
+    dynambarData:{ //for every 5 employee, there should be one manager
+    labels: ["Actual", "Needed"],
     datasets: [{
       label: "Employees",
-       data: [3],
-       fillColor: "rgba(0,10,220,0.5)"
+       data: [15,0],
+       fillColor: "rgba(116,219,196,0.5)"
      },
      {
        label: "Manager",
-       data: [8],
-       fillColor: "rgba(255,153,0,0.6)"
+       data: [2,1],
+       fillColor: "rgba(116,119,219,0.5)"
      }
     ]
   },
     linechartData: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
-      datasets: [{
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July','Aug'],
+      datasets: [
+        {
+          label: 'New Hiring Proj',
+          data: [12, 2, 2, 1, 5, 4, 8,11],
+          fillColor: "rgba(0,10,220,0)",
+          strokeColor: "rgba(116,119,219,0.4)",
+        },{
+          label: 'Terminate Proj',
+          data: [-2, -2, 0, -3, -2, 0, 2,4],
+          fillColor: "rgba(0,10,220,0)",
+          strokeColor: "rgba(116,219,196,0.4)",
+        },{
+          label: 'Projected Needs Proj',
+          data: [10, 3, 3, 1, 6, 3, 7,9],
+          fillColor: "rgba(255,153,0,0)",
+          strokeColor: "rgba(221,126,201,0.4)",
+        },{
         label: 'New Hiring',
-        data: [12, 2, 2, 1, 5, 4, 8],
+        data: [12, 2, 2, 1, 5, 4, 8,],
         fillColor: "rgba(0,10,220,0)",
-        strokeColor: "rgba(153,255,51,1)",
+        strokeColor: "rgba(116,119,219,1)",
       },{
         label: 'Terminate',
-        data: [-2, -2, 0, -3, -2, 0, 2],
+        data: [-2, -2, 0, -3, -2, 0, 2,],
         fillColor: "rgba(0,10,220,0)",
-        strokeColor: "rgba(0,10,220,1)",
+        strokeColor: "rgba(116,219,196,1)",
       },{
         label: 'Projected Needs',
-        data: [10, 28, 23, 22, 27, 30, 30],
+        data: [10, 3, 3, 1, 6, 3, 7,],
         fillColor: "rgba(255,153,0,0)",
-        strokeColor: "rgba(255,153,0,1)",
+        strokeColor: "rgba(221,126,201,1)",
       }]
     },
     linesourceData: {
@@ -56,23 +72,23 @@ class Resources extends Component {
         label: 'Talent Network',
         data: [30, 28, 36, 38, 39, 45, 35],
         fillColor: "rgba(153,255,51,0)",
-        strokeColor: "rgba(153,255,51,1)",
+        strokeColor: "rgba(116,119,219,1)",
       },{
         label: 'Referral',
         data: [5, 9, 6, 8, 9, 5, 5],
         fillColor: "rgba(0,10,220,0)",
-        strokeColor: "rgba(0,10,220,1)"
+        strokeColor: "rgba(116,219,196,1)",
       },{
         label: 'Internal Career Site',
         data: [12, 19, 14, 15, 17, 9, 15],
         fillColor: "rgba(255,153,0,0)",
-        strokeColor: "rgba(70,20,0,1)"
+        strokeColor: "rgba(221,126,201,1)",
       },
       {
         label: 'External Job Board',
         data: [40, 47, 46, 43, 49, 54, 52],
         fillColor: "rgba(255,153,0,0)",
-        strokeColor: "rgba(255,153,0,1)"
+        strokeColor: "rgba(124,186,113,1)",
       }]
     }
   }
@@ -89,9 +105,12 @@ class Resources extends Component {
           num_manager = num_manager + 1;
         }
     });
+    let needmana;
+    needmana = ((num_employee -(num_employee % 5))/5) - num_manager;
 
-    newdata.datasets[0].data = [num_employee];
-    newdata.datasets[1].data = [num_manager];
+
+    newdata.datasets[0].data = [num_employee, 0] ;
+    newdata.datasets[1].data = [num_manager,needmana];
 
     return (
       <div className="container">
@@ -124,10 +143,10 @@ class Resources extends Component {
          <Col sm={6} className="Graph">
            <h3>Resource Planning </h3>
            <Chart.Line data={this.state.linechartData} width="500" height="250"/>
-           <ul>
-               <li><span class="mylegend"></span> New Hiring</li>
-               <li><span class="mylegend"></span> Terminate</li>
-               <li><span class="mylegend"></span> Projected Needs</li>
+           <ul text-align="center">
+           <li><span class="mylegend"></span><font color="#7477db"> New Hiring</font></li>
+           <li><span class="mylegend"></span><font color="#74dbc4"> Terminate</font></li>
+           <li><span class="mylegend"></span><font color="#dd7ec9"> Projected Needs</font></li>
            </ul>
          </Col>
          <Col sm={6} className="Table">
@@ -139,32 +158,36 @@ class Resources extends Component {
                   <th>Priority</th>
                   <th>Department</th>
                   <th>Position</th>
-                  <th>Number</th>
+                  <th>#</th>
+                  <th>Best Bets</th>
                 </tr>
               </thead>
               <tbody>
               <LinkContainer to='/dashboard/performance/hiring'>
                 <tr>
-                  <td>Priority1</td>
+                  <td>1</td>
                   <td>HR</td>
                   <td>Project Manager</td>
-                  <td>1</td>
+                  <td>2</td>
+                  <td>Talent Netowrk</td>
                 </tr>
                 </LinkContainer>
                 <LinkContainer to='/dashboard/performance/hiring'>
                 <tr>
-                  <td>Priority2</td>
+                  <td>1</td>
                   <td>Sales</td>
                   <td>Data Analyst</td>
                   <td>2</td>
+                  <td>Talent Netowrk</td>
                 </tr>
                 </LinkContainer>
                 <LinkContainer to='/dashboard/performance/hiring'>
                 <tr>
-                  <td>Priority3</td>
+                  <td>2</td>
                   <td>Production</td>
                   <td>Line Worker</td>
                   <td>2</td>
+                  <td>Internal Referral</td>
                 </tr>
                 </LinkContainer>
               </tbody>
@@ -175,19 +198,19 @@ class Resources extends Component {
          <Col sm={6} className="Graph">
            <h3>Recruting Dashboard - Resouce Trends </h3>
            <Chart.Line data={this.state.linesourceData} width="500" height="250" />
-           <ul>
-               <li><span class="mylegend"></span> Talent Network</li>
-               <li><span class="mylegend"></span> Referral</li>
-               <li><span class="mylegend"></span> Internal Board</li>
-               <li><span class="mylegend"></span> External Board</li>
+           <ul text-align="center">
+               <li><span class="mylegend"></span><font color="#7477db"> Talent Network</font></li>
+               <li><span class="mylegend"></span><font color="#74dbc4"> Referral</font></li>
+               <li><span class="mylegend"></span><font color="#dd7ec9"> Internal Board</font></li>
+               <li><span class="mylegend"></span><font color="#7cba71"> External Board</font></li>
            </ul>
          </Col>
          <Col sm={6} className="Graph">
            <h3>Current Month Resource Needs DYNAM</h3>
            <Chart.Bar data={this.state.dynambarData} width="500" height="250"/>
-           <ul>
-               <li><span class="mylegend"></span> Manager</li>
-               <li><span class="mylegend"></span> Employee</li>
+           <ul text-align="center">
+           <li><span class="mylegend"></span><font color="#74dbc4"> Number of Employees</font></li>
+           <li><span class="mylegend"></span><font color="#7477db"> Number of Managers</font></li>
            </ul>
          </Col>
        </Row>
