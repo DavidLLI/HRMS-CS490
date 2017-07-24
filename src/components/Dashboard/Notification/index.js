@@ -14,8 +14,8 @@ class Notification extends Component {
           <Glyphicon glyph="remove" bsSize="small" />
         </Button>
         <h3>{Notif.title}</h3>
-        <div className="container">
-          <p>{Notif.content}</p>
+        <div className="notification-content-container">
+          {Notif.content}
         </div>
       </div>
     );
