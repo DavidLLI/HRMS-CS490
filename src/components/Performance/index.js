@@ -26,7 +26,6 @@ class PerformanceWrap extends Component {
       <Route path={`${url}/hiring`} component={Hiring} />
       <Route path={`${url}/payroll`} component={payrollPage} />
       <Route path={`${url}/performanceE2`} component={PerformanceE2} />
-
       </div>
     );
   }
@@ -35,23 +34,6 @@ class PerformanceWrap extends Component {
 var options = {
   labelScale: "yes",
 }
-var ChartLegend = React.createClass({
-  propTypes: {
-    datasets: React.PropTypes.array.isRequired
-  },
-
-  render: function () {
-    var datasets = _.map(this.props.datasets, function (ds) {
-      return <li><span className="legend-color-box" style={{ backgroundColor: ds.strokeColor }}></span> { ds.label }</li>;
-    });
-
-    return (
-      <ul className={ this.props.title + "-legend" }>
-        { datasets }
-      </ul>
-    );
-  }
-});
 
 
 @observer class Performance extends Component {
