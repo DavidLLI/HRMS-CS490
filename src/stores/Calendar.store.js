@@ -2,7 +2,6 @@ import AuthStore from '@stores/Auth.store';
 import { observable, action } from 'mobx';
 import axios from 'axios';
 import moment from 'moment';
-import Cookies from 'universal-cookie';
 import Config from '@config';
 
 class Calendar {

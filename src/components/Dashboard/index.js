@@ -29,19 +29,12 @@ import AuthStore from '@stores/Auth.store';
   render() {
     const currUrl = this.props.match.url;
     const activeTab = UserStore.type;
-
-    if (!AuthStore.isLoggedIn) {
+    if (!AuthStore.updateLoggedIn()) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
+
     if(!activeTab){
       return(
-        <div>
-        </div>
-      );
-    }
-
-    if (!activeTab) {
-      return (
         <div>
         </div>
       );

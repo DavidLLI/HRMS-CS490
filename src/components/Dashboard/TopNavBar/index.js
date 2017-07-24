@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import AuthStore from '@stores/Auth.store';
 
 class TopNavBar extends Component {
   handleClickLogout(){
-    window.location = 'login';
+    AuthStore.logOut();
+    window.location.reload();
   }
 
 
@@ -24,7 +26,7 @@ class TopNavBar extends Component {
             <MenuItem>Settings</MenuItem>
             <MenuItem>Feedbacks</MenuItem>
             <MenuItem divider />
-            <MenuItem onClick= {this.handleClickLogout}>Logout</MenuItem>
+            <MenuItem onClick={this.handleClickLogout}>Logout</MenuItem>
           </NavDropdown>
         </Nav>
       </Navbar>

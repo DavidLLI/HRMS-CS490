@@ -8,6 +8,7 @@ import UserStore from '@stores/User.store';
 import ProfileE from '@components/ProfileE';
 import { observer } from 'mobx-react';
 import SkillChart from '@components/SkillChart';
+import AuthStore from '@stores/Auth.store';
 
 
 class ProfileWrap extends Component {
@@ -158,7 +159,8 @@ class ProfileWrap extends Component {
   }
 
     handleClickLogout(){
-    window.location = 'login';
+    AuthStore.logOut();
+    window.location.reload();
   }
 }
 

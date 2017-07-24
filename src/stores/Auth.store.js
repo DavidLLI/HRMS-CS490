@@ -13,14 +13,21 @@ class Auth {
 
   constructor() {
     this.cookies = new Cookies();
+    this.username = '';
+  }
+
+  @action logOut() {
+    this.isLoggedIn = false;
+    this.cookies.set('hr_username', '', { path: '/' });
   }
 
   @action updateLoggedIn() {
     this.username = this.cookies.get('hr_username');
+    console.log(this.username);
     if (this.username) {
       this.isLoggedIn = true;
+      UserStore.logIn(this.username);
     }
-    console.log(this.username);
     return this.isLoggedIn;
   }
 
@@ -59,10 +66,6 @@ class Auth {
   			this.logInFail= true;
   			console.log(error);
   		});
-  }
-
-  @action logOut() {
-  	this.isLoggedIn = false;
   }
 }
 

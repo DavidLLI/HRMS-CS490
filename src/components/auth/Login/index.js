@@ -33,10 +33,6 @@ import './login.css';
   }
 
   render() {
-  	if (AuthStore.isLoggedIn) {
-  		return <Redirect to={{ pathname: '/basic' }} />;
-  	}
-
     return (
       	<form className="loginForm" onSubmit={this.handleSubmit}>
       		<div className="username">
