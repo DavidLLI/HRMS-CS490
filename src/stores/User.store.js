@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 import axios from 'axios';
 import moment from 'moment';
-import Cookies from 'universal-cookie';
 import AuthStore from '@stores/Auth.store';
 import ManagerStore from '@stores/Manager.store';
 import Config from '@config';

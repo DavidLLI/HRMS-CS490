@@ -109,31 +109,31 @@ class PayrollAnalytics extends Component {
     let approved = 0;
     let cancelled = 0;
     _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-      if(payroll.department == "Production"){
-        if(payroll.status == "Requested"){
+      if(payroll.department === "Production"){
+        if(payroll.status === "Requested"){
           Productdep[0]++;
           request++;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Productdep[1]++;
         } else {
           Productdep[2]++;
         }
-      } else if (payroll.department == "HR"){
-        if(payroll.status == "Requested"){
+      } else if (payroll.department === "HR"){
+        if(payroll.status === "Requested"){
           HRdep[0] = HRdep[0] +1;
           request = request + 1 ;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           HRdep[1] = HRdep[1] +1;
           approved = approved +1;
         } else {
           HRdep[2] = HRdep[2] +1;
           cancelled = cancelled +1;
         }
-      } else if(payroll.department == "Marketing"){
-        if(payroll.status == "Requested"){
+      } else if(payroll.department === "Marketing"){
+        if(payroll.status === "Requested"){
           Salesdep[0] =  Salesdep[0] +1;
           request = request + 1 ;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Salesdep[1] =  Salesdep[1] +1;
           approved = approved +1;
         } else {
@@ -141,10 +141,10 @@ class PayrollAnalytics extends Component {
           cancelled = cancelled +1;
         }
       } else { //finance
-        if(payroll.status == "Requested"){
+        if(payroll.status === "Requested"){
           Accountdep[0] = Accountdep[0] + 1;
           request++;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Accountdep[1] = Accountdep[1] + 1;
             approved = approved +1;
         } else {
@@ -200,31 +200,31 @@ class PayrollAnalytics extends Component {
     let approved = 0;
     let cancelled = 0;
     _.forEach(PayrollStore.allPayrolls, (payroll, id) => {
-      if(payroll.department == "Production"){
-        if(payroll.status == "Requested"){
+      if(payroll.department === "Production"){
+        if(payroll.status === "Requested"){
           Productdep[0]++;
           request++;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Productdep[1]++;
         } else {
           Productdep[2]++;
         }
-      } else if (payroll.department == "HR"){
-        if(payroll.status == "Requested"){
+      } else if (payroll.department === "HR"){
+        if(payroll.status === "Requested"){
           HRdep[0] = HRdep[0] +1;
           request = request + 1 ;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           HRdep[1] = HRdep[1] +1;
           approved = approved +1;
         } else {
           HRdep[2] = HRdep[2] +1;
           cancelled = cancelled +1;
         }
-      } else if(payroll.department == "Marketing"){
-        if(payroll.status == "Requested"){
+      } else if(payroll.department === "Marketing"){
+        if(payroll.status === "Requested"){
           Salesdep[0] =  Salesdep[0] +1;
           request = request + 1 ;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Salesdep[1] =  Salesdep[1] +1;
           approved = approved +1;
         } else {
@@ -232,10 +232,10 @@ class PayrollAnalytics extends Component {
           cancelled = cancelled +1;
         }
       } else { //finance
-        if(payroll.status == "Requested"){
+        if(payroll.status === "Requested"){
           Accountdep[0] = Accountdep[0] + 1;
           request++;
-        } else if(payroll.status == "Approved"){
+        } else if(payroll.status === "Approved"){
           Accountdep[1] = Accountdep[1] + 1;
             approved = approved +1;
         } else {

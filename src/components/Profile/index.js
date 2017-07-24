@@ -8,6 +8,7 @@ import UserStore from '@stores/User.store';
 import ProfileE from '@components/ProfileE';
 import { observer } from 'mobx-react';
 import SkillChart from '@components/SkillChart';
+import AuthStore from '@stores/Auth.store';
 
 
 class ProfileWrap extends Component {
@@ -33,15 +34,16 @@ class ProfileWrap extends Component {
        <Row>
           <Col xs={4} md={4}>
              <PageHeader>
-             
-               {UserStore.firstName +" " + UserStore.lastName}
+               Sam Smith
                </PageHeader>
 
 
         </Col>
-          <Col xsPush={5} md={4}>
+         <Col xsPush={2} md={1}>
           <ButtonToolbar>
-            <Button bsStyle="primary" onClick= {this.handleClickLogout} > Logout</Button>
+            <Link to='/dashboard/profile/chart'>
+              <Button bsStyle="primary">Manage</Button>
+            </Link>
           </ButtonToolbar>
           </Col>
           <Col xsPush={2} md={4}>
@@ -87,7 +89,7 @@ class ProfileWrap extends Component {
             </Row>
             <Row>
               {'Department: ' + UserStore.department}
-            </Row> 
+            </Row>
             <Row>
               Supervisor: Gigi Green
             </Row>
@@ -104,16 +106,10 @@ class ProfileWrap extends Component {
                ------------------------------
             </Row>
             <Row>
-               Computer Skills: PHP,Java,HTML,CSS,C++,JavaScript
+               Skills: PHP,Java,HTML,CSS,C++,JavaScript
             </Row>
             <Row>
-              Langauge Skills: English, French, Spainsh
-            </Row>
-            <Row>
-              {'Major: ' + UserStore.major}
-            </Row>
-            <Row>
-              Degree: Master
+              Interests: Tennis, football, piano
             </Row>
             <Row>
               ———————————————————————————————
@@ -136,20 +132,14 @@ class ProfileWrap extends Component {
 
             </Row>
         <Row>
-           <Col xsPush={5} md={4}>
+           <Col>
           <ButtonToolbar>
             <Link to='/dashboard/profile/edit'>
               <Button bsStyle="primary">Edit</Button>
             </Link>
           </ButtonToolbar>
           </Col>
-           <Col xsPush={5} md={4}>
-          <ButtonToolbar>
-            <Link to='/dashboard/profile/chart'>
-              <Button bsStyle="primary">Manage</Button>
-            </Link>
-          </ButtonToolbar>
-          </Col>
+
 
         </Row>
       </Grid>
@@ -158,7 +148,8 @@ class ProfileWrap extends Component {
   }
 
     handleClickLogout(){
-    window.location = 'login';
+    AuthStore.logOut();
+    window.location.reload();
   }
 }
 
