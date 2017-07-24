@@ -50,7 +50,7 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
   }
 
   editRegularAvail() {
-    if (CalendarStore.regularAvail.Monday.startTime) {
+    if (CalendarStore.regularAvail.Monday) {
       this.setState({regularModalShow: true});
     }
   }
@@ -121,13 +121,13 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
   }
 
   render() {
-    if (!AuthStore.isLoggedIn) {
+    if (!AuthStore.updateLoggedIn()) {
       return <Redirect to={{ pathname: '/login' }} />;
     }
     //console.log(CalendarStore.availability.slice().length);
     return (
       <div>
-        <button onClick={this.editRegularAvail}>
+        <button onClick={this.editRegularAvail} disabled={!CalendarStore.regularAvail.Monday}>
           Edit regular availability
         </button>
         <Row>
