@@ -33,6 +33,10 @@ var options = {
                 labels: ["EmpolyeeName"],
                 data: [],
                 fillColor: "rgba(0,10,220,0.5)"
+            },{
+               label: "EmpolyeeName",
+                data: [],
+                fillColor: "rgba(0,0,220,0.5)"
             }]
         },
             donutData2: [
@@ -81,8 +85,7 @@ var options = {
 
     _.forEach(ManagerStore.allemployees, (em, emuser) => {
         if(em.type == "employee"){
-           empName.push(em.firstName +' ' + em.lastName);
-           empScore.push(em.performanceScore);
+
            totalScore = totalScore + em.performanceScore;
            empNum = empNum + 1;
 
@@ -96,12 +99,11 @@ var options = {
         } else {}
     });
 
-    empName.push('Average Score');
-    avgScore = totalScore / empNum;
-    empScore.push(avgScore);
 
-    salesData.labels = empName;
-    salesData.datasets[0].data = empScore;
+    avgScore = totalScore / empNum;
+
+
+
 
     evaluationData[0].value = satisfied;
     evaluationData[1].value = soso;
@@ -113,8 +115,11 @@ var options = {
             let bonusScore = 0;
             bonusScore = em.performanceScore-avgScore;
             if(bonusScore > 0){
+                empName.push(em.firstName +' ' + em.lastName);
+                empScore.push(em.performanceScore);
                 const obj = {
                     name: em.firstName + " " + em.lastName,
+                    performanceScore: em.performanceScore,
                     rate: 22.5,
                     bonusBenefits: 22.5*bonusScore
                 }
@@ -123,6 +128,19 @@ var options = {
           }
         }
     });
+
+    empName.push("avg");
+    empScore.push(avgScore);
+    salesData.labels = empName;
+    salesData.datasets[0].data = empScore;
+
+
+    // and then map
+    const myData = [].concat(semp)
+        .sort((a, b) => a.performanceScore > b.performanceScore)
+        .map((item, i) =>
+            <div key={i}> {item.name} {item.performanceScore} {item.rate} {item.bonusBenefits}</div>
+    );
 
 
     return(
@@ -147,7 +165,7 @@ var options = {
     </Row>
            <Row>
                <Col sm={6} className="Graph">
-        <h3>Sales Performance DYNAM</h3>
+        <h3>Satisfied Performance DYNAM</h3>
            <Chart.Bar data={this.state.salesProgress} options={options} width="400" height="250"/>
         </Col>
         <Col sm={6} className="Graph">
@@ -165,6 +183,8 @@ var options = {
               <thead>
                 <tr>
                   <th>Employee Name</th>
+                  <th>performanceScore</th>
+
                   <th>Bonus Rate($)</th>
                   <th>Actual Benefits Earned($)</th>
 
@@ -175,6 +195,8 @@ var options = {
 				        	return (
 					            <tr>
 					              <td>{row.name}</td>
+                                  <td>{row.performanceScore}</td>
+
 					              <td>{row.rate}</td>
 					              <td>{row.bonusBenefits}</td>
 					            </tr>

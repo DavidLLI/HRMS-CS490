@@ -13,6 +13,7 @@ class NotificationStore {
     this.ws = new WebSocket(`${Config.SERVER_WS}`);
     this.ws.addEventListener('open', () => {
       this.ws.send('Hello server!');
+      console.log('WS IS ALL GOOD');
     });
     this.ws.addEventListener('message', (msg) => {
       this.handleIncomingMessage(msg);
