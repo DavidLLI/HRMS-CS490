@@ -31,8 +31,8 @@ var options = {
             labels: ["Name"],
             datasets: [{
                 labels: ["EmpolyeeName"],
-                data: [],
-                fillColor: "rgba(0,10,220,0.5)"
+                data: ["renee ren", "whatever ren"],
+                fillColor: ["#43a857", "rgba(0,10,220,0.5)"]
             },{
                label: "EmpolyeeName",
                 data: [],
@@ -85,7 +85,7 @@ var options = {
 
     _.forEach(ManagerStore.allemployees, (em, emuser) => {
         if(em.type == "employee"){
-
+          if (em.performanceScore > 0){
            totalScore = totalScore + em.performanceScore;
            empNum = empNum + 1;
 
@@ -96,12 +96,11 @@ var options = {
           }else{
               soso = soso + 1;
           }
+        }
         } else {}
     });
 
-
-    avgScore = totalScore / empNum;
-
+    avgScore = (totalScore / empNum).toFixed(2);
 
 
 
@@ -109,8 +108,12 @@ var options = {
     evaluationData[1].value = soso;
     evaluationData[2].value = improve;
 
+    empName.push("avg");
+    empScore.push(avgScore);
+
+
     _.forEach(ManagerStore.allemployees, (em, emuser) => {
-        if(em.type == "employee"){
+        if(em.type == "employee" && em.performanceScore > 0){
 
             let bonusScore = 0;
             bonusScore = em.performanceScore-avgScore;
@@ -129,12 +132,8 @@ var options = {
         }
     });
 
-    empName.push("avg");
-    empScore.push(avgScore);
     salesData.labels = empName;
     salesData.datasets[0].data = empScore;
-
-
     // and then map
     const myData = [].concat(semp)
         .sort((a, b) => a.performanceScore > b.performanceScore)
@@ -198,7 +197,7 @@ var options = {
                                   <td>{row.performanceScore}</td>
 
 					              <td>{row.rate}</td>
-					              <td>{row.bonusBenefits}</td>
+					              <td>{row.bonusBenefits.toFixed(2)}</td>
 					            </tr>
 				        	);
 				        })}
